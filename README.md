@@ -13,3 +13,4 @@
 - Typescript
 - Tailwind CSS
 - React Query
+- Trpc

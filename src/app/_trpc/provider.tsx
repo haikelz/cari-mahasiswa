@@ -1,30 +1,34 @@
 "use client";
 
-import { ReactNode, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { trpc } from "./client";
 import { httpBatchLink } from "@trpc/react-query";
+import { atom, useAtom } from "jotai";
+import { ReactNode } from "react";
 import { env } from "~env.mjs";
+import { trpc } from "./client";
 
 const { NEXT_PUBLIC_DEVELOPMENT_URL, NEXT_PUBLIC_PRODUCTION_URL } = env;
 
-export default function Provider({ children }: { children: ReactNode }) {
-  const condition = process.env.NODE_ENV;
+const condition = process.env.NODE_ENV;
 
-  const [queryClient] = useState(() => new QueryClient({}));
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      links: [
-        httpBatchLink({
-          url: `${
-            condition === "development"
-              ? NEXT_PUBLIC_DEVELOPMENT_URL
-              : NEXT_PUBLIC_PRODUCTION_URL
-          }/api/trpc`,
-        }),
-      ],
-    })
-  );
+const queryClientAtom = atom<QueryClient>(() => new QueryClient({}));
+const trpcClientAtom = atom(() =>
+  trpc.createClient({
+    links: [
+      httpBatchLink({
+        url: `${
+          condition === "development"
+            ? NEXT_PUBLIC_DEVELOPMENT_URL
+            : NEXT_PUBLIC_PRODUCTION_URL
+        }/api/trpc`,
+      }),
+    ],
+  })
+);
+
+export default function Provider({ children }: { children: ReactNode }) {
+  const [queryClient] = useAtom(queryClientAtom);
+  const [trpcClient] = useAtom(trpcClientAtom);
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>

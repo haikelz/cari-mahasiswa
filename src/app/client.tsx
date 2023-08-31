@@ -7,7 +7,7 @@ import ErrorClient from "~components/error-client";
 import LoadingClient from "~components/loading-client";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
-import { nameSchema } from "~lib/utils/schema";
+import { schema } from "~lib/utils/schema";
 import { MahasiswaProps } from "~types";
 import { trpc } from "./_trpc/client";
 
@@ -18,14 +18,12 @@ export default function Client() {
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: { name: "" },
-    resolver: zodResolver(nameSchema),
+    defaultValues: { value: "" },
+    resolver: zodResolver(schema),
   });
 
   const { data, isLoading, isError, refetch } = trpc.getData.useQuery(
-    {
-      value: getValues("name"),
-    },
+    { value: getValues("value") },
     {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
@@ -56,7 +54,7 @@ export default function Client() {
             height={20}
           />
           <input
-            {...register("name")}
+            {...register("value")}
             className={tw(
               "flex relative h-9 w-full rounded-md border border-input",
               "bg-transparent px-3 py-1 text-sm shadow-sm transition-colors",
@@ -67,31 +65,44 @@ export default function Client() {
             )}
             type="search"
             placeholder="Cari berdasarkan nama, NIM, jurusan, atau perguruan tinggi...."
-            name="name"
+            name="value"
             required
           />
         </div>
-        {errors.name?.message ? (
-          <Paragraph className="mt-2">{errors.name.message}</Paragraph>
+        {errors.value?.message ? (
+          <Paragraph className="mt-2">{errors.value.message}</Paragraph>
         ) : null}
       </form>
       <div className="space-y-5 mt-5">
-        {mahasiswa.mahasiswa.length
-          ? studentsData.map((item, index) => (
+        {mahasiswa.mahasiswa.length ? (
+          studentsData.map((item, index) => (
+            <div className="group" key={index + 1}>
               <div
                 className={tw(
-                  "border border-neutral-300 dark:bg-neutral-900",
+                  "border border-neutral-300",
+                  "group-hover:cursor-pointer dark:bg-neutral-900 group-hover:bg-gray-100",
+                  "group-hover:dark:bg-neutral-800",
                   "bg-gray-50 dark:border-neutral-200",
                   "rounded-md w-full p-3"
                 )}
-                key={index + 1}
               >
-                <p className="font-medium">Nama: {item[0]}</p>
-                <p className="font-medium">Perguruan Tinggi: {item[1]}</p>
-                <p className="font-medium">Prodi: {item[2]}</p>
+                <Paragraph className="font-medium group-hover:cursor-auto w-fit">
+                  Nama: {item[0]}
+                </Paragraph>
+                <Paragraph className="font-medium group-hover:cursor-auto w-fit">
+                  Perguruan Tinggi: {item[1]}
+                </Paragraph>
+                <Paragraph className="font-medium group-hover:cursor-auto w-fit">
+                  Prodi: {item[2]}
+                </Paragraph>
               </div>
-            ))
-          : null}
+            </div>
+          ))
+        ) : (
+          <p className="text-center font-semibold">
+            Data Mahasiswa tidak ditemukan!
+          </p>
+        )}
       </div>
     </div>
   );

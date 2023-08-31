@@ -1,4 +1,6 @@
-export const seoData = {
+import { Metadata } from "next";
+
+export const seoData: Metadata = {
   title: "Cari Mahasiswa",
   description:
     "Sebuah Website untuk mencari data Mahasiswa dari berbagai perguruan tinggi",
