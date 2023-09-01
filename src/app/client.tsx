@@ -95,7 +95,10 @@ export default function Client() {
                     item[0],
                     getValues("value"),
                     (match, index) => (
-                      <span key={index + 1} className="bg-yellow-600">
+                      <span
+                        key={index + 1}
+                        className="dark:bg-yellow-600 bg-yellow-300"
+                      >
                         {match}
                       </span>
                     )
