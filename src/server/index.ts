@@ -16,7 +16,7 @@ export const router = t.router;
 export const publicProcedure = t.procedure;
 
 export const appRouter = router({
-  getData: publicProcedure
+  getMahasiswa: publicProcedure
     .input(z.object({ value: z.string() }))
     .output(
       z.object({

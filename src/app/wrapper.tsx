@@ -3,7 +3,7 @@
 import { Provider as JotaiProvider } from "jotai";
 import { ThemeProvider } from "next-themes";
 import { ChildrenProps } from "~types";
-import Provider from "./_trpc/provider";
+import Provider from "../lib/utils/trpc/provider";
 
 export default function Wrapper({ children }: ChildrenProps) {
   return (
