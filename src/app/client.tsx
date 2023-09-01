@@ -3,12 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
+import reactStringReplace from "react-string-replace";
 import ErrorClient from "~components/error-client";
 import LoadingClient from "~components/loading-client";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
-import { MahasiswaProps } from "~types";
+import { DataProps } from "~types";
 import { trpc } from "./_trpc/client";
 
 export default function Client() {
@@ -31,7 +32,7 @@ export default function Client() {
     }
   );
 
-  const mahasiswa = data as MahasiswaProps;
+  const mahasiswa = data as DataProps;
 
   function onSubmit() {
     refetch();
@@ -70,7 +71,9 @@ export default function Client() {
           />
         </div>
         {errors.value?.message ? (
-          <Paragraph className="mt-2">{errors.value.message}</Paragraph>
+          <Paragraph className="mt-2 text-center md:text-left">
+            {errors.value.message}
+          </Paragraph>
         ) : null}
       </form>
       <div className="space-y-5 mt-5">
@@ -87,21 +90,34 @@ export default function Client() {
                 )}
               >
                 <Paragraph className="font-medium group-hover:cursor-auto w-fit">
-                  Nama: {item[0]}
+                  Nama:{" "}
+                  {reactStringReplace(
+                    item[0],
+                    getValues("value"),
+                    (match, index) => (
+                      <span key={index + 1} className="bg-yellow-600">
+                        {match}
+                      </span>
+                    )
+                  )}
                 </Paragraph>
-                <Paragraph className="font-medium group-hover:cursor-auto w-fit">
+                <Paragraph
+                  className={tw("font-medium", "group-hover:cursor-auto w-fit")}
+                >
                   Perguruan Tinggi: {item[1]}
                 </Paragraph>
-                <Paragraph className="font-medium group-hover:cursor-auto w-fit">
+                <Paragraph
+                  className={tw("font-medium", "group-hover:cursor-auto w-fit")}
+                >
                   Prodi: {item[2]}
                 </Paragraph>
               </div>
             </div>
           ))
         ) : (
-          <p className="text-center font-semibold">
+          <Paragraph className="text-center font-semibold">
             Data Mahasiswa tidak ditemukan!
-          </p>
+          </Paragraph>
         )}
       </div>
     </div>

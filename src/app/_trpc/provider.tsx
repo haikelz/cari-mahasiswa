@@ -3,8 +3,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/react-query";
 import { atom, useAtom } from "jotai";
-import { ReactNode } from "react";
 import { env } from "~env.mjs";
+import { ChildrenProps } from "~types";
 import { trpc } from "./client";
 
 const { NEXT_PUBLIC_DEVELOPMENT_URL, NEXT_PUBLIC_PRODUCTION_URL } = env;
@@ -26,7 +26,7 @@ const trpcClientAtom = atom(() =>
   })
 );
 
-export default function Provider({ children }: { children: ReactNode }) {
+export default function Provider({ children }: ChildrenProps) {
   const [queryClient] = useAtom(queryClientAtom);
   const [trpcClient] = useAtom(trpcClientAtom);
 
