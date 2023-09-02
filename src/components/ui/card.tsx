@@ -1,6 +1,6 @@
-import { tw } from "~lib/helpers";
-import { Paragraph } from "./typography/paragraph";
 import reactStringReplace from "react-string-replace";
+import { tw } from "~lib/helpers";
+import { Paragraph } from "./typography";
 
 type CardProps = {
   item: string[];

@@ -4,8 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import ErrorClient from "~components/error-client";
+import IsRefetching from "~components/is-refetching";
 import LoadingClient from "~components/loading-client";
-import { Card } from "~components/ui";
+import { Card } from "~components/ui/card";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
@@ -23,7 +24,7 @@ export default function Client() {
     resolver: zodResolver(schema),
   });
 
-  const { data, isLoading, isError, refetch } = trpc.getMahasiswa.useQuery(
+  const { data, isLoading, isError, refetch, isFetching } = trpc.get.useQuery(
     { value: getValues("value") },
     {
       keepPreviousData: true,
@@ -39,6 +40,7 @@ export default function Client() {
   }
 
   if (isLoading) return <LoadingClient />;
+  if (isFetching && getValues("value").length) return <IsRefetching />;
   if (isError) return <ErrorClient />;
 
   const studentsData = mahasiswa.mahasiswa.map((item) =>
