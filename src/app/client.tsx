@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import ErrorClient from "~components/error-client";
 import IsRefetching from "~components/is-refetching";
 import LoadingClient from "~components/loading-client";
-import { Card } from "~components/ui/card";
+import Card from "~components/ui/card";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
-import { DataProps } from "~types";
+import type { DataProps } from "~types";
 
 export default function Client() {
   const {

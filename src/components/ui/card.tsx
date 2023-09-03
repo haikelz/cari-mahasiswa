@@ -7,7 +7,7 @@ type CardProps = {
   value: string;
 };
 
-export function Card({ item, value }: CardProps) {
+export default function Card({ item, value }: CardProps) {
   return (
     <div className="group">
       <div

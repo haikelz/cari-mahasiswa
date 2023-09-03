@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { ChildrenProps } from "~types";
+import type { ChildrenProps } from "~types";
 
 type ParagraphProps = ChildrenProps & HTMLAttributes<HTMLParagraphElement>;
 

@@ -1,10 +1,9 @@
-import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Heading, Paragraph } from "~components/ui/typography";
 import { seoData } from "~lib/utils/data";
 import Client from "./client";
 
-export const metadata: Metadata = seoData;
+export const metadata = seoData;
 
 const SwitchTheme = dynamic(() => import("../components/switch-theme"), {
   ssr: false,

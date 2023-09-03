@@ -18,7 +18,12 @@ export const publicProcedure = t.procedure;
 async function getMahasiswa(value: string): Promise<MahasiswaProps> {
   const response = await ofetch(
     `${NEXT_PUBLIC_API_URL}/${value ? value : "Yuuki"}`,
-    { method: "GET", parseResponse: JSON.parse, responseType: "json" }
+    {
+      method: "GET",
+      parseResponse: JSON.parse,
+      responseType: "json",
+      cache: "force-cache",
+    }
   );
 
   return response as MahasiswaProps;

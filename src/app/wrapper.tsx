@@ -2,8 +2,8 @@
 
 import { Provider as JotaiProvider } from "jotai";
 import { ThemeProvider } from "next-themes";
-import { ChildrenProps } from "~types";
-import Provider from "../lib/utils/trpc/provider";
+import Provider from "~lib/utils/trpc/provider";
+import type { ChildrenProps } from "~types";
 
 export default function Wrapper({ children }: ChildrenProps) {
   return (

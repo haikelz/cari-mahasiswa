@@ -1,6 +1,6 @@
 "use client";
 
-import { Heading, Paragraph } from "../components/ui/typography";
+import { Heading, Paragraph } from "~components/ui/typography";
 
 export default function ErrorPage() {
   return (

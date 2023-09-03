@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/react-query";
 import { atom, useAtom } from "jotai";
 import { env } from "~env.mjs";
-import { ChildrenProps } from "~types";
+import type { ChildrenProps } from "~types";
 import { trpc } from "./client";
 
 const { NEXT_PUBLIC_DEVELOPMENT_URL, NEXT_PUBLIC_PRODUCTION_URL } = env;
