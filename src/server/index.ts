@@ -16,7 +16,7 @@ export const router = t.router;
 export const publicProcedure = t.procedure;
 
 async function getMahasiswa(value: string): Promise<MahasiswaProps> {
-  const response = await ofetch(
+  const response = await ofetch<MahasiswaProps>(
     `${NEXT_PUBLIC_API_URL}/${value ? value : "Yuuki"}`,
     {
       method: "GET",
@@ -26,7 +26,7 @@ async function getMahasiswa(value: string): Promise<MahasiswaProps> {
     }
   );
 
-  return response as MahasiswaProps;
+  return response;
 }
 
 export const appRouter = router({

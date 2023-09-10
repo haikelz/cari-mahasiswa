@@ -11,6 +11,7 @@ export default function BackToTop() {
     <>
       {scroll > 50 ? (
         <button
+          id="back-to-top"
           className={tw(
             "fixed border border-neutral-300 dark:bg-neutral-900",
             "bg-gray-50 dark:border-neutral-200",

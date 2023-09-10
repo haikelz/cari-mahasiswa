@@ -19,7 +19,7 @@ export default function HomePage() {
           </Heading>
           <SwitchTheme />
         </div>
-        <Paragraph className="my-5 text-center">
+        <Paragraph id="description" className="my-5 text-center">
           Sebuah Website untuk mencari data Mahasiswa dari berbagai perguruan
           tinggi di Indonesia.
         </Paragraph>
