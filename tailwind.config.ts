@@ -10,6 +10,10 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    backgroundImage: {
+      "grid-dark": "url('/grid-dark.svg')",
+      "grid-light": "url('/grid-light.svg')",
+    },
     container: {
       center: true,
       padding: "2rem",

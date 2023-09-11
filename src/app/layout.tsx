@@ -15,7 +15,12 @@ export const metadata = seoData;
 export default function RootLayout({ children }: ChildrenProps) {
   return (
     <html lang="en">
-      <body className={tw("p-4", inter.className)}>
+      <body
+        className={tw(
+          "p-4 bg-grid-light dark:bg-grid-dark bg-center",
+          inter.className
+        )}
+      >
         <Wrapper>
           {children}
           <BackToTop />

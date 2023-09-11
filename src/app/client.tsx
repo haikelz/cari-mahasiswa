@@ -50,7 +50,7 @@ export default function Client() {
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex justify-start items-center">
+        <div className="flex justify-start relative items-center">
           <MagnifyingGlassIcon
             className="absolute ml-3"
             width={20}
@@ -59,8 +59,8 @@ export default function Client() {
           <input
             {...register("value")}
             className={tw(
-              "flex relative h-9 w-full rounded-md border border-input",
-              "bg-transparent px-3 py-1 text-sm shadow-sm transition-colors",
+              "flex h-9 w-full rounded-md border border-input",
+              "px-3 py-1 text-sm bg-background shadow-sm transition-colors",
               "file:border-0 file:bg-transparent file:text-sm file:font-medium",
               "focus-visible:ring-1 focus-visible:ring-ring",
               "placeholder:text-muted-foreground focus-visible:outline-none pl-10",
@@ -73,7 +73,10 @@ export default function Client() {
           />
         </div>
         {errors.value?.message ? (
-          <Paragraph className="mt-2 text-center md:text-left">
+          <Paragraph
+            data-cy="error-message"
+            className="mt-2 text-center md:text-left"
+          >
             {errors.value.message}
           </Paragraph>
         ) : null}

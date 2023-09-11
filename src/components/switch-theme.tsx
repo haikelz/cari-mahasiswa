@@ -9,7 +9,6 @@ export default function SwitchTheme() {
 
   return (
     <button
-      id="switch-theme"
       type="button"
       aria-label="switch theme"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}

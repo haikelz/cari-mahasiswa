@@ -9,7 +9,7 @@ type CardProps = {
 
 export default function Card({ item, value }: CardProps) {
   return (
-    <div id="card" className="group">
+    <div data-cy="card" className="group">
       <div
         className={tw(
           "border border-neutral-300",
