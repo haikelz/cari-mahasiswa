@@ -10,7 +10,7 @@ import { useCallback, useEffect } from "react";
 
 const scrollAtom = atom<number>(0);
 
-export function useScroll() {
+export function useScroll(): number {
   const [scroll, setScroll] = useAtom(scrollAtom);
 
   const handleScroll = useAtomCallback(

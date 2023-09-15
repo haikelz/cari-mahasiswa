@@ -13,13 +13,13 @@ describe("Homepage", () => {
       );
 
     // test switch theme button
-    cy.get(`[aria-label="switch theme"]`).should("be.visible");
+    cy.get(`[data-cy="switch-theme"]`).should("be.visible").click("center");
 
     cy.wait(1000);
 
     // test back to top button
     cy.scrollTo("center")
-      .get(`[aria-label="back to top"]`)
+      .get(`[data-cy="back-to-top"]`)
       .should("be.visible")
       .click("center");
 

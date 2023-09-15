@@ -4,6 +4,7 @@
   "description": "Sebuah Website untuk mencari data Mahasiswa dari berbagai perguruan tinggi",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

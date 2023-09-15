@@ -1,10 +1,8 @@
 import { HTMLAttributes } from "react";
-import type { ChildrenProps } from "~types";
 
-type HeadingProps = HTMLAttributes<HTMLHeadingElement> &
-  ChildrenProps & {
-    as: "h1" | "h2" | "h3" | "h4";
-  };
+type HeadingProps = HTMLAttributes<HTMLHeadingElement> & {
+  as: "h1" | "h2" | "h3" | "h4";
+};
 
 export function Heading({ as, children }: HeadingProps) {
   return (

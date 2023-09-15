@@ -2,16 +2,18 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import ErrorClient from "~components/error-client";
 import IsRefetching from "~components/is-refetching";
 import LoadingClient from "~components/loading-client";
-import Card from "~components/ui/card";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
 import type { DataProps } from "~types";
+
+const Card = dynamic(() => import("~components/ui/card"));
 
 export default function Client() {
   const {
@@ -35,10 +37,6 @@ export default function Client() {
 
   const mahasiswa = data as DataProps;
 
-  function onSubmit() {
-    refetch();
-  }
-
   if (isLoading) return <LoadingClient />;
   if (isFetching && getValues("value").length) return <IsRefetching />;
   if (isError) return <ErrorClient />;
@@ -49,7 +47,11 @@ export default function Client() {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(() => {
+          refetch();
+        })}
+      >
         <div className="flex justify-start relative items-center">
           <MagnifyingGlassIcon
             className="absolute ml-3"

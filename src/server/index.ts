@@ -22,7 +22,6 @@ async function getMahasiswa(value: string): Promise<MahasiswaProps> {
       method: "GET",
       parseResponse: JSON.parse,
       responseType: "json",
-      cache: "force-cache",
     }
   );
 

@@ -5,7 +5,7 @@ import Client from "./client";
 
 export const metadata = seoData;
 
-const SwitchTheme = dynamic(() => import("../components/switch-theme"), {
+const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
   ssr: false,
 });
 
