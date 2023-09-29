@@ -5,6 +5,7 @@ import { seoData } from "~lib/utils/data";
 import type { ChildrenProps } from "~types";
 import "./globals.css";
 import Wrapper from "./wrapper";
+import { Analytics } from "@vercel/analytics/react";
 
 const BackToTop = dynamic(() => import("~components/back-to-top"));
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: ChildrenProps) {
           {children}
           <BackToTop />
         </Wrapper>
+        <Analytics />
       </body>
     </html>
   );

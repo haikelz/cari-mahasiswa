@@ -11,6 +11,6 @@
 
 - Next JS 13
 - Typescript
-- Tailwind CSS
+- Tailwind CSS with shadcn/ui
 - React Query
 - Trpc
