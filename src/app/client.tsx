@@ -32,6 +32,7 @@ export default function Client() {
       keepPreviousData: true,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
+      refetchOnMount: false,
     }
   );
 
@@ -45,13 +46,13 @@ export default function Client() {
     item.text.replace(/PT :|Prodi: /gi, "").split(", ")
   );
 
+  function onSubmit() {
+    refetch();
+  }
+
   return (
     <div className="w-full">
-      <form
-        onSubmit={handleSubmit(() => {
-          refetch();
-        })}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-start relative items-center">
           <MagnifyingGlassIcon
             className="absolute ml-3"
@@ -59,13 +60,13 @@ export default function Client() {
             height={20}
           />
           <input
-            {...register("value")}
+            {...register("value", { required: true })}
             className={tw(
               "flex h-9 w-full rounded-md border border-input",
               "px-3 py-1 text-sm bg-background shadow-sm transition-colors",
               "file:border-0 file:bg-transparent file:text-sm file:font-medium",
-              "focus-visible:ring-1 focus-visible:ring-ring",
               "placeholder:text-muted-foreground focus-visible:outline-none pl-10",
+              "focus-visible:ring-1 focus-visible:ring-ring",
               "disabled:cursor-not-allowed disabled:opacity-50"
             )}
             type="search"

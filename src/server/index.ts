@@ -15,17 +15,23 @@ const t = initTRPC.create();
 export const router = t.router;
 export const publicProcedure = t.procedure;
 
-async function getMahasiswa(value: string): Promise<MahasiswaProps> {
-  const response = await ofetch<MahasiswaProps>(
-    `${NEXT_PUBLIC_API_URL}/${value ? value : "Yuuki"}`,
-    {
-      method: "GET",
-      parseResponse: JSON.parse,
-      responseType: "json",
-    }
-  );
+async function getMahasiswa(
+  value: string
+): Promise<MahasiswaProps | undefined> {
+  try {
+    const response = await ofetch<MahasiswaProps>(
+      `${NEXT_PUBLIC_API_URL}/${value ? value : "Yuuki"}`,
+      {
+        method: "GET",
+        parseResponse: JSON.parse,
+        responseType: "json",
+      }
+    );
 
-  return response;
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 export const appRouter = router({
@@ -43,8 +49,8 @@ export const appRouter = router({
       const data = await getMahasiswa(input.value);
 
       return {
-        total: data.mahasiswa.length,
-        mahasiswa: data.mahasiswa,
+        total: data?.mahasiswa.length as number,
+        mahasiswa: data?.mahasiswa as BaseDataProps[],
       };
     }),
 });

@@ -15,7 +15,7 @@ export const metadata = seoData;
 
 export default function RootLayout({ children }: ChildrenProps) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <body className={tw("p-4", inter.className)}>
         <Wrapper>
           {children}
