@@ -42,17 +42,13 @@ export default function Client() {
   if (isFetching && getValues("value").length) return <IsRefetching />;
   if (isError) return <ErrorClient />;
 
-  const studentsData = mahasiswa.mahasiswa.map((item) =>
+  const studentsData: string[][] = mahasiswa.mahasiswa.map((item) =>
     item.text.replace(/PT :|Prodi: /gi, "").split(", ")
   );
 
-  function onSubmit() {
-    refetch();
-  }
-
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(() => refetch())}>
         <div className="flex justify-start relative items-center">
           <MagnifyingGlassIcon
             className="absolute ml-3"
