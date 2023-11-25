@@ -3,7 +3,11 @@ import { tw } from "~lib/helpers";
 import { Paragraph } from "./typography";
 
 type CardProps = {
-  item: string[];
+  item: {
+    nama: string;
+    pt: string;
+    prodi: string;
+  };
   value: string;
 };
 
@@ -21,7 +25,7 @@ export default function Card({ item, value }: CardProps) {
       >
         <Paragraph className="font-medium group-hover:cursor-auto w-fit">
           Nama:{" "}
-          {reactStringReplace(item[0], value, (match, index) => (
+          {reactStringReplace(item.nama, value, (match, index) => (
             <span key={index + 1} className="dark:bg-yellow-600 bg-yellow-300">
               {match}
             </span>
@@ -30,12 +34,22 @@ export default function Card({ item, value }: CardProps) {
         <Paragraph
           className={tw("font-medium", "group-hover:cursor-auto w-fit")}
         >
-          Perguruan Tinggi: {item[1]}
+          Perguruan Tinggi:
+          {reactStringReplace(item.pt, value, (match, index) => (
+            <span key={index + 1} className="dark:bg-yellow-600 bg-yellow-300">
+              {match}
+            </span>
+          ))}
         </Paragraph>
         <Paragraph
           className={tw("font-medium", "group-hover:cursor-auto w-fit")}
         >
-          Prodi: {item[2]}
+          Prodi:{" "}
+          {reactStringReplace(item.prodi, value, (match, index) => (
+            <span className="dark:bg-yellow-600 bg-yellow-300" key={index + 1}>
+              {match}
+            </span>
+          ))}
         </Paragraph>
       </div>
     </div>

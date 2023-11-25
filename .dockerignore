@@ -3,3 +3,5 @@ cypress
 .github
 README.md
 LICENSE
+cypress
+cypress.config.ts

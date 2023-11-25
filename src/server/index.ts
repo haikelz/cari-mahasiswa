@@ -5,7 +5,9 @@ import { env } from "~env.mjs";
 import { BaseDataProps } from "~types";
 
 type MahasiswaProps = {
-  mahasiswa: BaseDataProps[];
+  mahasiswa: {
+    text: string;
+  }[];
 };
 
 const { NEXT_PUBLIC_API_URL } = env;
@@ -41,7 +43,11 @@ export const appRouter = router({
       z.object({
         total: z.number(),
         mahasiswa: z
-          .object({ text: z.string(), "website-link": z.string() })
+          .object({
+            nama: z.string().min(1),
+            pt: z.string().min(1),
+            prodi: z.string().min(1),
+          })
           .array(),
       })
     )
@@ -50,7 +56,15 @@ export const appRouter = router({
 
       return {
         total: data?.mahasiswa.length as number,
-        mahasiswa: data?.mahasiswa as BaseDataProps[],
+        mahasiswa: data?.mahasiswa
+          .map((item) => item.text.replace(/PT :|prodi: /gi, "").split(", "))
+          .map((item) => {
+            return {
+              nama: item[0],
+              pt: item[1],
+              prodi: item[2],
+            };
+          }) as BaseDataProps[],
       };
     }),
 });

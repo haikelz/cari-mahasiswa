@@ -1,4 +1,4 @@
-import { Heading, Paragraph } from "./ui/typography";
+import { Heading, Paragraph } from "../../components/ui/typography";
 
 export default function ErrorClient() {
   return (

@@ -2,16 +2,17 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { keepPreviousData } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-import ErrorClient from "~components/error-client";
-import IsRefetching from "~components/is-refetching";
-import LoadingClient from "~components/loading-client";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
 import type { DataProps } from "~types";
+import ErrorClient from "./error-client";
+import IsRefetching from "./is-refetching";
+import LoadingClient from "./loading-client";
 
 const Card = dynamic(() => import("~components/ui/card"));
 
@@ -26,10 +27,10 @@ export default function Client() {
     resolver: zodResolver(schema),
   });
 
-  const { data, isLoading, isError, refetch, isFetching } = trpc.get.useQuery(
+  const { data, isPending, isError, refetch, isFetching } = trpc.get.useQuery(
     { value: getValues("value") },
     {
-      keepPreviousData: true,
+      placeholderData: keepPreviousData,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
       refetchOnMount: false,
@@ -38,13 +39,11 @@ export default function Client() {
 
   const mahasiswa = data as DataProps;
 
-  if (isLoading) return <LoadingClient />;
+  if (isPending) return <LoadingClient />;
   if (isFetching && getValues("value").length) return <IsRefetching />;
   if (isError) return <ErrorClient />;
 
-  const studentsData: string[][] = mahasiswa.mahasiswa.map((item) =>
-    item.text.replace(/PT :|Prodi: /gi, "").split(", ")
-  );
+  const studentsData = mahasiswa.mahasiswa;
 
   return (
     <div className="w-full">

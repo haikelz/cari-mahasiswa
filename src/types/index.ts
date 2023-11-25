@@ -5,8 +5,9 @@ export type ChildrenProps = {
 };
 
 export type BaseDataProps = {
-  text: string;
-  "website-link": string;
+  nama: string;
+  pt: string;
+  prodi: string;
 };
 
 export type DataProps = {

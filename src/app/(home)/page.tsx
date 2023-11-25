@@ -6,6 +6,9 @@ import Client from "./client";
 export const metadata = seoData;
 
 const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
+  loading: () => (
+    <div className="w-12 h-12 rounded-md bg-neutral-200 dark:bg-neutral-800 animate-pulse"></div>
+  ),
   ssr: false,
 });
 
