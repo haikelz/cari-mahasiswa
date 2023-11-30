@@ -1,3 +1,4 @@
+import htmr from "htmr";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -141,7 +142,9 @@ export default async function DetailMahasiswa(
                     <TableCell className="font-medium text-center">
                       {index + 1}
                     </TableCell>
-                    <TableCell className="font-medium">{item.nm_mk}</TableCell>
+                    <TableCell className="font-medium">
+                      {htmr(item.nm_mk)}
+                    </TableCell>
                     <TableCell className="font-medium text-center">
                       {item.kode_mk}
                     </TableCell>
