@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { LoadingBackToTop } from "~components/back-to-top";
 import { Heading, Paragraph } from "~components/ui/typography";
+
 import Client from "./client";
 
 export const metadata: Metadata = {

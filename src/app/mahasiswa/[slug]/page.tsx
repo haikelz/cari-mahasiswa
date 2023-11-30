@@ -22,11 +22,9 @@ const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
   ssr: false,
 });
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata | undefined> {
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata | undefined> {
   const { slug } = params;
 
   const response: DetailMahasiswaProps = await configuredOfetch(
@@ -61,12 +59,11 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<{ slug: string }[]> {
+export async function generateStaticParams(
+  { params }: { params: { slug: string } }
+): Promise<{ slug: string }[]> {
   const { slug } = params;
+
   const response: MahasiswaProps = await configuredOfetch(
     `${NEXT_PUBLIC_API_URL}/hit_mhs/${slug}`
   );
@@ -84,11 +81,9 @@ async function getStudentDetail(slug: string): Promise<DetailMahasiswaProps> {
   return response;
 }
 
-export default async function DetailMahasiswa({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function DetailMahasiswa(
+  { params }: { params: { slug: string } }
+) {
   const { slug } = params;
 
   const studentDetail = await getStudentDetail(slug);

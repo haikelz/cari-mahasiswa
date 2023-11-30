@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { tw } from "~lib/helpers";
 
 const Table = React.forwardRef<

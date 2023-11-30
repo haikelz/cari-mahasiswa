@@ -6,7 +6,7 @@
 ## Features
 
 - Cari mahasiswa berdasarkan NIM, nama, jurusan, serta nama perguruan tinggi
-- Tampilkan detail mahasiswa(seperti status kuliah, mata kuliah).
+- Tampilkan detail mahasiswa.
 
 ## Screenshots
 
