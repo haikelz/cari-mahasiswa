@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { LoadingBackToTop } from "~components/back-to-top";
 import {
   Table,
   TableBody,
@@ -17,9 +18,7 @@ import { DetailMahasiswaProps, MahasiswaProps } from "~types";
 const { NEXT_PUBLIC_API_URL } = env;
 
 const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
-  loading: () => (
-    <div className="w-12 h-12 rounded-md bg-neutral-200 dark:bg-neutral-800 animate-pulse"></div>
-  ),
+  loading: () => <LoadingBackToTop />,
   ssr: false,
 });
 
@@ -53,10 +52,12 @@ export async function generateMetadata({
     twitter: {
       title: response.dataumum.nm_pd,
       description: `Mahasiswa bernama ${response.dataumum.nm_pd}`,
-      site: `https://cari-mahasiswa.vercel.app/mahasiswa/${response.dataumum.nm_pd}`,
+      site: `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
       card: "summary_large_image",
     },
-    metadataBase: new URL(`https://cari-mahasiswa.vercel.app`),
+    metadataBase: new URL(
+      `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`
+    ),
   };
 }
 
@@ -65,8 +66,9 @@ export async function generateStaticParams({
 }: {
   params: { slug: string };
 }): Promise<{ slug: string }[]> {
+  const { slug } = params;
   const response: MahasiswaProps = await configuredOfetch(
-    `${NEXT_PUBLIC_API_URL}/hit_mhs/${params.slug}`
+    `${NEXT_PUBLIC_API_URL}/hit_mhs/${slug}`
   );
 
   return response.mahasiswa.map((item) => ({

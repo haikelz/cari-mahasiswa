@@ -18,10 +18,6 @@ export type MahasiswaProps = {
   }[];
 };
 
-export type DetailPtProps = {};
-
-export type DataPtProps = {};
-
 export type DetailMahasiswaProps = {
   datastatuskuliah: DataStatusKuliahProps[];
   datastudi: DataStudiProps[];

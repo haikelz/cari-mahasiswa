@@ -7,11 +7,12 @@
 
 - Cari mahasiswa berdasarkan NIM, nama, jurusan, serta nama perguruan tinggi
 - Tampilkan detail mahasiswa(seperti status kuliah, mata kuliah).
-- Tampilkan detail perguruan tinggi yang dimasuki mahasiswa.
 
 ## Screenshots
 
 ![ss 1](./public/ss-1.png)
+
+![ss 2](./public/ss-2.png)
 
 ## Tech Stack
 
