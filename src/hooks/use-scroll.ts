@@ -4,11 +4,10 @@
  * A custom hook to detect user's scroll
  * @returns {number} scroll value
  */
-import { atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useAtomCallback } from "jotai/utils";
 import { useCallback, useEffect } from "react";
-
-const scrollAtom = atom<number>(0);
+import { scrollAtom } from "~store";
 
 export function useScroll(): number {
   const [scroll, setScroll] = useAtom(scrollAtom);

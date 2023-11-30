@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { tw } from "~lib/helpers";
 import { useScroll } from "~hooks";
+import { tw } from "~lib/helpers";
 
 export default function BackToTop() {
   const scroll = useScroll();

@@ -1,4 +1,4 @@
-import { Paragraph } from "../../components/ui/typography";
+import { Paragraph } from "~components/ui/typography";
 
 export default function IsRefetching() {
   return (

@@ -11,6 +11,7 @@ export default function SwitchTheme() {
     <button
       type="button"
       aria-label="switch theme"
+      data-cy="switch-theme"
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       className={tw(
         "px-3 py-2.5 dark:bg-neutral-900",

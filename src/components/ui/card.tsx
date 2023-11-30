@@ -1,56 +1,25 @@
-import reactStringReplace from "react-string-replace";
+import { HTMLAttributes } from "react";
 import { tw } from "~lib/helpers";
-import { Paragraph } from "./typography";
 
-type CardProps = {
-  item: {
-    nama: string;
-    pt: string;
-    prodi: string;
-  };
-  value: string;
+type CardProps = HTMLAttributes<HTMLDivElement> & {
+  className?: string;
 };
 
-export default function Card({ item, value }: CardProps) {
+export default function Card({ children, className, ...props }: CardProps) {
   return (
     <div data-cy="card" className="group">
       <div
         className={tw(
           "border border-neutral-300",
-          "group-hover:cursor-pointer dark:bg-neutral-900 group-hover:bg-gray-100",
+          "dark:bg-neutral-900 group-hover:bg-gray-100",
           "group-hover:dark:bg-neutral-800",
           "bg-gray-50 dark:border-neutral-200",
-          "rounded-md w-full p-3"
+          "rounded-md w-full p-3",
+          className
         )}
+        {...props}
       >
-        <Paragraph className="font-medium group-hover:cursor-auto w-fit">
-          Nama:{" "}
-          {reactStringReplace(item.nama, value, (match, index) => (
-            <span key={index + 1} className="dark:bg-yellow-600 bg-yellow-300">
-              {match}
-            </span>
-          ))}
-        </Paragraph>
-        <Paragraph
-          className={tw("font-medium", "group-hover:cursor-auto w-fit")}
-        >
-          Perguruan Tinggi:
-          {reactStringReplace(item.pt, value, (match, index) => (
-            <span key={index + 1} className="dark:bg-yellow-600 bg-yellow-300">
-              {match}
-            </span>
-          ))}
-        </Paragraph>
-        <Paragraph
-          className={tw("font-medium", "group-hover:cursor-auto w-fit")}
-        >
-          Prodi:{" "}
-          {reactStringReplace(item.prodi, value, (match, index) => (
-            <span className="dark:bg-yellow-600 bg-yellow-300" key={index + 1}>
-              {match}
-            </span>
-          ))}
-        </Paragraph>
+        {children}
       </div>
     </div>
   );

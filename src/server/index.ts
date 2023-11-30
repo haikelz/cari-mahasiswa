@@ -1,14 +1,8 @@
 import { initTRPC } from "@trpc/server";
-import { ofetch } from "ofetch";
 import { z } from "zod";
 import { env } from "~env.mjs";
-import { BaseDataProps } from "~types";
-
-type MahasiswaProps = {
-  mahasiswa: {
-    text: string;
-  }[];
-};
+import { configuredOfetch } from "~lib/utils/configured-ofetch";
+import { BaseMahasiswaProps, MahasiswaProps } from "~types";
 
 const { NEXT_PUBLIC_API_URL } = env;
 
@@ -21,13 +15,8 @@ async function getMahasiswa(
   value: string
 ): Promise<MahasiswaProps | undefined> {
   try {
-    const response = await ofetch<MahasiswaProps>(
-      `${NEXT_PUBLIC_API_URL}/${value ? value : "Yuuki"}`,
-      {
-        method: "GET",
-        parseResponse: JSON.parse,
-        responseType: "json",
-      }
+    const response: MahasiswaProps = await configuredOfetch(
+      `${NEXT_PUBLIC_API_URL}/hit_mhs/${value ? value : "Yuuki"}`
     );
 
     return response;
@@ -47,6 +36,7 @@ export const appRouter = router({
             nama: z.string().min(1),
             pt: z.string().min(1),
             prodi: z.string().min(1),
+            hash: z.string().min(1),
           })
           .array(),
       })
@@ -57,14 +47,27 @@ export const appRouter = router({
       return {
         total: data?.mahasiswa.length as number,
         mahasiswa: data?.mahasiswa
-          .map((item) => item.text.replace(/PT :|prodi: /gi, "").split(", "))
+          .map((item) => {
+            const replaceStr = item.text
+              .replace(/PT :|prodi: /gi, "")
+              .split(", ");
+
+            return {
+              data: replaceStr,
+              hash: item["website-link"].replace(
+                /data_mahasiswa|[^a-z0-9-]/gi,
+                ""
+              ),
+            };
+          })
           .map((item) => {
             return {
-              nama: item[0],
-              pt: item[1],
-              prodi: item[2],
+              nama: item.data[0],
+              pt: item.data[1],
+              prodi: item.data[2],
+              hash: item.hash,
             };
-          }) as BaseDataProps[],
+          }) as BaseMahasiswaProps[],
       };
     }),
 });

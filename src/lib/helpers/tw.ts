@@ -1,4 +1,4 @@
-import clsx, { ClassValue } from "clsx";
+import { cx } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
-export const tw = (...classes: ClassValue[]) => twMerge(clsx(...classes));
+export const tw = (...classes: any[]) => twMerge(cx(...classes));

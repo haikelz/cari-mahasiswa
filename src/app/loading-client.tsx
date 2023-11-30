@@ -5,7 +5,7 @@ export default function LoadingClient() {
     <div className="flex flex-col text-center justify-center items-center w-full">
       <div
         className={tw(
-          "dark:bg-neutral-800",
+          "dark:bg-neutral-800 animate-pulse",
           "bg-neutral-200",
           "rounded-md w-full h-10"
         )}
