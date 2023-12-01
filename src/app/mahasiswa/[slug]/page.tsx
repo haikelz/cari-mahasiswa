@@ -137,22 +137,39 @@ export default async function DetailMahasiswa(
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {studentDetail.datastudi.map((item, index) => (
-                  <TableRow key={index + 1}>
+                {studentDetail.datastudi.length ? (
+                  studentDetail.datastudi.map((item, index) => (
+                    <TableRow key={index + 1}>
+                      <TableCell className="font-medium text-center">
+                        {studentDetail.datastudi.length ? index + 1 : "Anime"}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {htmr(item.nm_mk)}
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        {item.kode_mk}
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        {item.sks_mk}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
                     <TableCell className="font-medium text-center">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {htmr(item.nm_mk)}
+                      Tidak ada data
                     </TableCell>
                     <TableCell className="font-medium text-center">
-                      {item.kode_mk}
+                      Tidak ada data
                     </TableCell>
                     <TableCell className="font-medium text-center">
-                      {item.sks_mk}
+                      Tidak ada data
+                    </TableCell>
+                    <TableCell className="font-medium text-center">
+                      Tidak ada data
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </div>
