@@ -22,7 +22,7 @@ export async function generateMetadata(
 ): Promise<Metadata | undefined> {
   const { slug } = params;
   const response: DetailPerguruanTinggiProps = await configuredOfetch(
-    `https://api-frontend.kemdikbud.go.id/detail_pt/${slug}`
+    `${NEXT_PUBLIC_API_URL}/detail_pt/${slug}`
   );
 
   const { data } = response;
