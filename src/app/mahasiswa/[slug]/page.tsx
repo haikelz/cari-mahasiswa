@@ -1,8 +1,6 @@
 import htmr from "htmr";
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import { LoadingBackToTop } from "~components/back-to-top";
 import {
   Table,
   TableBody,
@@ -17,11 +15,6 @@ import { configuredOfetch } from "~lib/utils/configured-ofetch";
 import { DetailMahasiswaProps, MahasiswaProps } from "~types";
 
 const { NEXT_PUBLIC_API_URL } = env;
-
-const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
-  loading: () => <LoadingBackToTop />,
-  ssr: false,
-});
 
 export async function generateMetadata(
   { params }: { params: { slug: string } }
@@ -46,7 +39,7 @@ export async function generateMetadata(
           alt: "OG Image",
         },
       ],
-      siteName: "cari-mahasiswa.vercel.app",
+      siteName: `cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
     },
     twitter: {
       title: response.dataumum.nm_pd,
@@ -87,45 +80,87 @@ export default async function DetailMahasiswa(
 ) {
   const { slug } = params;
 
-  const studentDetail = await getStudentDetail(slug);
+  const { datastatuskuliah, datastudi, dataumum } = await getStudentDetail(
+    slug
+  );
 
   return (
     <main className="flex justify-center flex-col items-center w-full">
       <section className="max-w-3xl w-full">
         <div className="flex items-start justify-center flex-col w-full">
-          <div className="flex w-full justify-center items-center space-x-5">
-            <Heading as="h1" className="text-center">
-              Detail Mahasiswa
-            </Heading>
-            <SwitchTheme />
+          <div className="flex w-full justify-center items-center space-x-5 text-center">
+            <Heading as="h1">Detail Mahasiswa</Heading>
           </div>
           <div className="w-full mt-8 mb-4">
             <Heading as="h3">Informasi Umum</Heading>
             <div className="mt-2">
               <Paragraph className="font-medium">
-                Nama: {studentDetail.dataumum.nm_pd}
+                Nama: {dataumum.nm_pd}
               </Paragraph>
               <Paragraph className="font-medium">
-                <Link href="">NIM: {studentDetail.dataumum.nipd}</Link>
+                <Link href="">NIM: {dataumum.nipd}</Link>
               </Paragraph>
               <Paragraph className="font-medium">
-                Perguruan Tinggi: {studentDetail.dataumum.namapt}
+                Perguruan Tinggi:{" "}
+                <Link
+                  href={`/perguruan-tinggi/${dataumum.link_pt.replace(
+                    /data_pt|[^a-z0-9-]/gi,
+                    ""
+                  )}`}
+                  className="text-blue-500 underline underline-offset-4"
+                >
+                  {dataumum.namapt}
+                </Link>
               </Paragraph>
               <Paragraph className="font-medium">
-                Prodi: {studentDetail.dataumum.namaprodi}
+                Prodi: {dataumum.namaprodi}
               </Paragraph>
               <Paragraph className="font-medium">
-                Jenjang: {studentDetail.dataumum.namajenjang}
+                Jenjang: {dataumum.namajenjang}
               </Paragraph>
               <Paragraph className="font-medium">
-                Jenis Kelamin:{" "}
-                {studentDetail.dataumum.jk === "L" ? "Laki-Laki" : "Perempuan"}
+                Jenis Kelamin: {dataumum.jk === "L" ? "Laki-Laki" : "Perempuan"}
               </Paragraph>
             </div>
           </div>
+          <div className="w-full my-5">
+            <Heading as="h3">Status Kuliah</Heading>
+            <Table className="mt-3">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-bold">ID</TableHead>
+                  <TableHead className="font-bold">SKS</TableHead>
+                  <TableHead className="font-bold">Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {datastatuskuliah.length ? (
+                  datastatuskuliah.map((item, index) => (
+                    <TableRow key={index + 1}>
+                      <TableCell className="font-semibold">
+                        {item.id_smt}
+                      </TableCell>
+                      <TableCell className="font-semibold">
+                        {item.sks_smt}
+                      </TableCell>
+                      <TableCell className="font-semibold">
+                        {item.nm_stat_mhs}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell className="font-medium">-</TableCell>
+                    <TableCell className="font-medium">-</TableCell>
+                    <TableCell className="font-medium">-</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
           <div className="w-full mt-5">
             <Heading as="h3">Data Studi</Heading>
-            <Table>
+            <Table className="mt-3">
               <TableHeader>
                 <TableRow>
                   <TableHead className="text-center font-bold">No</TableHead>
@@ -137,37 +172,29 @@ export default async function DetailMahasiswa(
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {studentDetail.datastudi.length ? (
-                  studentDetail.datastudi.map((item, index) => (
+                {datastudi.length ? (
+                  datastudi.map((item, index) => (
                     <TableRow key={index + 1}>
                       <TableCell className="font-medium text-center">
-                        {studentDetail.datastudi.length ? index + 1 : "Anime"}
+                        {datastudi.length ? index + 1 : "-"}
                       </TableCell>
                       <TableCell className="font-medium">
-                        {htmr(item.nm_mk)}
+                        {htmr(item.nm_mk) ?? "-"}
                       </TableCell>
                       <TableCell className="font-medium text-center">
-                        {item.kode_mk}
+                        {item.kode_mk ?? "-"}
                       </TableCell>
                       <TableCell className="font-medium text-center">
-                        {item.sks_mk}
+                        {item.sks_mk ?? "-"}
                       </TableCell>
                     </TableRow>
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell className="font-medium text-center">
-                      Tidak ada data
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      Tidak ada data
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      Tidak ada data
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      Tidak ada data
-                    </TableCell>
+                    <TableCell className="font-medium text-center">-</TableCell>
+                    <TableCell className="font-medium text-center">-</TableCell>
+                    <TableCell className="font-medium text-center">-</TableCell>
+                    <TableCell className="font-medium text-center">-</TableCell>
                   </TableRow>
                 )}
               </TableBody>

@@ -4,6 +4,16 @@ import "./src/env.mjs";
 const nextConfig = {
   reactStrictMode: true,
   compress: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+        port: "",
+      },
+    ],
+    dangerouslyAllowSVG: true,
+  },
 };
 
 export default nextConfig;
