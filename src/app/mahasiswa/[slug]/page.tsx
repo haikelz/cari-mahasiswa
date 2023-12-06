@@ -25,14 +25,16 @@ export async function generateMetadata(
     `${NEXT_PUBLIC_API_URL}/detail_mhs/${slug}`
   );
 
+  const { dataumum } = response;
+
   return {
     title: response.dataumum.nm_pd,
-    description: `Mahasiswa bernama ${response.dataumum.nm_pd}`,
+    description: `Mahasiswa bernama ${dataumum.nm_pd}`,
     openGraph: {
       type: "website",
       url: `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
-      title: `Mahasiswa bernama ${response.dataumum.nm_pd}`,
-      description: `Mahasiswa bernama ${response.dataumum.nm_pd}`,
+      title: `Mahasiswa bernama ${dataumum.nm_pd}`,
+      description: `Mahasiswa bernama ${dataumum.nm_pd}`,
       images: [
         {
           url: "/banner.png",
@@ -43,7 +45,7 @@ export async function generateMetadata(
     },
     twitter: {
       title: response.dataumum.nm_pd,
-      description: `Mahasiswa bernama ${response.dataumum.nm_pd}`,
+      description: `Mahasiswa bernama ${dataumum.nm_pd}`,
       site: `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
       card: "summary_large_image",
     },
@@ -95,10 +97,10 @@ export default async function DetailMahasiswa(
             <Heading as="h3">Informasi Umum</Heading>
             <div className="mt-2">
               <Paragraph className="font-medium">
-                Nama: {dataumum.nm_pd}
+                Nama: {dataumum.nm_pd ?? "-"}
               </Paragraph>
               <Paragraph className="font-medium">
-                <Link href="">NIM: {dataumum.nipd}</Link>
+                NIM: {dataumum.nipd ?? "-"}
               </Paragraph>
               <Paragraph className="font-medium">
                 Perguruan Tinggi:{" "}
@@ -109,14 +111,14 @@ export default async function DetailMahasiswa(
                   )}`}
                   className="text-blue-500 underline underline-offset-4"
                 >
-                  {dataumum.namapt}
+                  {dataumum.namapt ?? "-"}
                 </Link>
               </Paragraph>
               <Paragraph className="font-medium">
-                Prodi: {dataumum.namaprodi}
+                Prodi: {dataumum.namaprodi ?? "-"}
               </Paragraph>
               <Paragraph className="font-medium">
-                Jenjang: {dataumum.namajenjang}
+                Jenjang: {dataumum.namajenjang ?? "-"}
               </Paragraph>
               <Paragraph className="font-medium">
                 Jenis Kelamin: {dataumum.jk === "L" ? "Laki-Laki" : "Perempuan"}
@@ -141,10 +143,10 @@ export default async function DetailMahasiswa(
                         {item.id_smt}
                       </TableCell>
                       <TableCell className="font-semibold">
-                        {item.sks_smt}
+                        {item.sks_smt ?? "-"}
                       </TableCell>
                       <TableCell className="font-semibold">
-                        {item.nm_stat_mhs}
+                        {item.nm_stat_mhs ?? "-"}
                       </TableCell>
                     </TableRow>
                   ))

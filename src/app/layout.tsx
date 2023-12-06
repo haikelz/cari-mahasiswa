@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
 import { tw } from "~lib/helpers";
-import type { ChildrenProps } from "~types";
+import { ChildrenProps } from "~types";
 
 import "./globals.css";
 import Wrapper from "./wrapper";

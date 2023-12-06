@@ -6,7 +6,8 @@
 ## Features
 
 - Cari mahasiswa berdasarkan NIM, nama, jurusan, serta nama perguruan tinggi
-- Tampilkan detail mahasiswa.
+- Tampilkan detail mahasiswa
+- Tampilkan detail perguruan tinggi
 
 ## Screenshots
 
@@ -14,10 +15,12 @@
 
 ![ss 2](./public/ss-2.png)
 
+![ss 3](./public/ss-3.png)
+
 ## Tech Stack
 
 - Next JS 13
 - Typescript
 - Tailwind CSS with shadcn/ui
 - React Query
-- Trpc
+- tRPC

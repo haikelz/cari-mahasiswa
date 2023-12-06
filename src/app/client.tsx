@@ -5,13 +5,13 @@ import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { keepPreviousData } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import reactStringReplace from "react-string-replace";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
+
 import ErrorClient from "./error-client";
 import IsRefetching from "./is-refetching";
 import LoadingClient from "./loading-client";
@@ -19,8 +19,6 @@ import LoadingClient from "./loading-client";
 const Card = dynamic(() => import("~components/ui/card"));
 
 export default function Client() {
-  const router = useRouter();
-
   const {
     register,
     getValues,

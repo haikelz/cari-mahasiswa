@@ -69,7 +69,6 @@ export default async function DetailPerguruanTinggi(
   { params }: { params: { slug: string } }
 ) {
   const { slug } = params;
-
   const { data, prodi } = await getUniversityDetail(slug);
 
   return (
@@ -91,6 +90,7 @@ export default async function DetailPerguruanTinggi(
                 height={300}
                 isBase64={data.logo ? true : false}
                 className="my-4 rounded-md dark:bg-white"
+                fetchPriority="high"
               />
             </div>
             <div className="mt-4">
@@ -98,19 +98,19 @@ export default async function DetailPerguruanTinggi(
               <div className="mt-2">
                 <Paragraph className="font-medium">NPSN: {data.npsn}</Paragraph>
                 <Paragraph className="font-medium">
-                  Nama: {data.nm_lemb}
+                  Nama: {data.nm_lemb ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Wilayah: {data.nama_wil}
+                  Wilayah: {data.nama_wil ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Alamat: {data.jln}
+                  Alamat: {data.jln ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Status: {data.stat_sp}
+                  Status: {data.stat_sp ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Tanggal berdiri: {formatToID(data.tgl_berdiri)}
+                  Tanggal berdiri: {formatToID(data.tgl_berdiri) ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
                   Website:{" "}
@@ -125,23 +125,24 @@ export default async function DetailPerguruanTinggi(
                     className="text-blue-500 underline underline-offset-4"
                     rel="noreferrer noopener"
                   >
-                    {data.website}
+                    {data.website ?? "-"}
                   </Link>
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  No.Telepon: {data.no_tel}
+                  No.Telepon: {data.no_tel ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  E-Mail: {data.email}
+                  E-Mail: {data.email ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Kode pos: {data.kode_pos}
+                  Kode pos: {data.kode_pos ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  SK.Pendirian SP: {data.sk_pendirian_sp}
+                  SK.Pendirian SP: {data.sk_pendirian_sp ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Tanggal SK Pendirian: {formatToID(data.tgl_sk_pendirian_sp)}
+                  Tanggal SK Pendirian:{" "}
+                  {formatToID(data.tgl_sk_pendirian_sp) ?? "-"}
                 </Paragraph>
               </div>
             </div>
