@@ -35,10 +35,10 @@
 
 ## Getting Started
 
-- Clone this repo
-- Install all needed deps with `pnpm install`
+- Clone this repo.
+- Install all needed deps with `pnpm install`.
 - Fill all needed environment variable. You can see the format of my env in `.env.example` file.
-- Type `pnpm run dev` and see the result in `http://localhost:3000`
+- Type `pnpm run dev` and see the result in `http://localhost:3000`.
 
 ## License
 
