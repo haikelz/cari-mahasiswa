@@ -1,6 +1,5 @@
-import format from "date-fns/format";
-import id from "date-fns/locale/id";
-import parseISO from "date-fns/parseISO";
+import { format, parseISO } from "date-fns";
+import { id } from "date-fns/locale";
 
 /**
  * A helper function to format UTC date to ID format

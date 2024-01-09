@@ -9,6 +9,10 @@
 - Tampilkan detail mahasiswa
 - Tampilkan detail perguruan tinggi
 
+## Website Structure
+
+![website structure](public/website-structure.png)
+
 ## Screenshots
 
 ![ss 1](./public/ss-1.png)
@@ -17,6 +21,10 @@
 
 ![ss 3](./public/ss-3.png)
 
+## Videos
+
+[![Video](public/banner.png)](https://youtu.be/aVuWC-usk7c?feature=shared)
+
 ## Tech Stack
 
 - Next JS 13
@@ -24,3 +32,14 @@
 - Tailwind CSS with shadcn/ui
 - React Query
 - tRPC
+
+## Getting Started
+
+- Clone this repo
+- Install all needed deps with `pnpm install`
+- Fill all needde environment variable. You can see the format of my env in `.env.example` file.
+- Type `pnpm run dev` and see the result in `http://localhost:3000`
+
+## License
+
+[MIT](https://github.com/haikelz/money-management/blob/master/LICENSE)

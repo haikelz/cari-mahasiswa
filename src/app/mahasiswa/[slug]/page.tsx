@@ -1,6 +1,7 @@
 import htmr from "htmr";
 import { Metadata } from "next";
 import Link from "next/link";
+import Breadcrumbs from "~components/breadcumbs";
 import {
   Table,
   TableBody,
@@ -11,6 +12,7 @@ import {
 } from "~components/ui/table";
 import { Heading, Paragraph } from "~components/ui/typography";
 import { env } from "~env.mjs";
+import { getStudentDetail } from "~features";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
 import { DetailMahasiswaProps, MahasiswaProps } from "~types";
 
@@ -69,14 +71,6 @@ export async function generateStaticParams(
   }));
 }
 
-async function getStudentDetail(slug: string): Promise<DetailMahasiswaProps> {
-  const response: DetailMahasiswaProps = await configuredOfetch(
-    `${NEXT_PUBLIC_API_URL}/detail_mhs/${slug}`
-  );
-
-  return response;
-}
-
 export default async function DetailMahasiswa(
   { params }: { params: { slug: string } }
 ) {
@@ -90,7 +84,8 @@ export default async function DetailMahasiswa(
     <main className="flex justify-center flex-col items-center w-full">
       <section className="max-w-3xl w-full">
         <div className="flex items-start justify-center flex-col w-full">
-          <div className="flex w-full justify-center items-center space-x-5 text-center">
+          <Breadcrumbs />
+          <div className="flex w-full mt-10 justify-center items-center space-x-5 text-center">
             <Heading as="h1">Detail Mahasiswa</Heading>
           </div>
           <div className="w-full mt-8 mb-4">

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Breadcrumbs from "~components/breadcumbs";
 import Image from "~components/ui/image";
 import {
   Table,
@@ -11,6 +12,7 @@ import {
 } from "~components/ui/table";
 import { Heading, Paragraph } from "~components/ui/typography";
 import { env } from "~env.mjs";
+import { getUniversityDetail } from "~features";
 import { formatToID } from "~lib/helpers";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
 import { DetailPerguruanTinggiProps } from "~types";
@@ -55,16 +57,6 @@ export async function generateMetadata(
   };
 }
 
-async function getUniversityDetail(
-  slug: string
-): Promise<DetailPerguruanTinggiProps> {
-  const response: DetailPerguruanTinggiProps = await configuredOfetch(
-    `${NEXT_PUBLIC_API_URL}/detail_pt/${slug}`
-  );
-
-  return response;
-}
-
 export default async function DetailPerguruanTinggi(
   { params }: { params: { slug: string } }
 ) {
@@ -75,7 +67,8 @@ export default async function DetailPerguruanTinggi(
     <main className="flex justify-center flex-col items-center w-full">
       <section className="max-w-3xl w-full">
         <div className="flex w-full justify-center items-start flex-col">
-          <div className="flex justify-center items-center w-full text-center">
+          <Breadcrumbs />
+          <div className="flex mt-10 justify-center items-center w-full text-center">
             <Heading as="h1">Detail Perguruan Tinggi</Heading>
           </div>
           <div className="mt-8 w-full mb-4">

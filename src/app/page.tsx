@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { LoadingBackToTop } from "~components/back-to-top";
+import Breadcrumbs from "~components/breadcumbs";
 import { Heading, Paragraph } from "~components/ui/typography";
 
 import Client from "./client";
@@ -38,7 +39,7 @@ const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
   ssr: false,
 });
 
-export default function HomePage({ params }: { params: { slug: string } }) {
+export default function HomePage() {
   return (
     <main className="w-full flex justify-center items-start min-h-screen">
       <section className="w-full max-w-3xl my-3 flex justify-center items-center flex-col">

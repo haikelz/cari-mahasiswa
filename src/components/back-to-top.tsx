@@ -31,6 +31,11 @@ export default function BackToTop() {
 
 export function LoadingBackToTop() {
   return (
-    <div className="w-12 h-12 rounded-md bg-neutral-200 dark:bg-neutral-800 animate-pulse"></div>
+    <div
+      className={tw(
+        "w-12 h-12 rounded-md bg-neutral-200",
+        "dark:bg-neutral-800 animate-pulse"
+      )}
+    ></div>
   );
 }

@@ -4,12 +4,12 @@ import { env } from "~env.mjs";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
 import { BaseMahasiswaProps, MahasiswaProps } from "~types";
 
-const { NEXT_PUBLIC_API_URL } = env;
-
 const t = initTRPC.create();
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
+
+const { NEXT_PUBLIC_API_URL } = env;
 
 async function getMahasiswa(
   value: string
@@ -42,32 +42,38 @@ export const appRouter = router({
       })
     )
     .query(async ({ input }) => {
-      const data = await getMahasiswa(input.value);
+      const data = (await getMahasiswa(input.value)) as MahasiswaProps;
+
+      const mahasiswa = data.mahasiswa
+        .map((item) => {
+          // replace "PT :" and "prodi:" string
+          const replaceStr = item.text
+            .replace(/PT :|prodi: /gi, "")
+            .split(", ");
+
+          // replace "/data_mahasiswa" string
+          const hash = item["website-link"].replace(
+            /data_mahasiswa|[^a-z0-9]/gi,
+            ""
+          );
+
+          return {
+            data: replaceStr,
+            hash: hash,
+          };
+        })
+        .map((item) => {
+          return {
+            nama: item.data[0],
+            pt: item.data[1],
+            prodi: item.data[2],
+            hash: item.hash,
+          };
+        }) as BaseMahasiswaProps[];
 
       return {
-        total: data?.mahasiswa.length as number,
-        mahasiswa: data?.mahasiswa
-          .map((item) => {
-            const replaceStr = item.text
-              .replace(/PT :|prodi: /gi, "")
-              .split(", ");
-
-            return {
-              data: replaceStr,
-              hash: item["website-link"].replace(
-                /data_mahasiswa|[^a-z0-9-]/gi,
-                ""
-              ),
-            };
-          })
-          .map((item) => {
-            return {
-              nama: item.data[0],
-              pt: item.data[1],
-              prodi: item.data[2],
-              hash: item.hash,
-            };
-          }) as BaseMahasiswaProps[],
+        total: data.mahasiswa.length as number,
+        mahasiswa: mahasiswa,
       };
     }),
 });
