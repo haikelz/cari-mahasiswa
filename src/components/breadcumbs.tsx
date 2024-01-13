@@ -19,7 +19,7 @@ export default function Breadcrumbs() {
     )}...</span>`;
 
   return (
-    <span className="font-semibold px-2 leading-6 tracking-wide py-1 rounded-md bg-slate-200">
+    <span className="font-semibold px-2 leading-6 tracking-wide py-1 rounded-md bg-neutral-200 dark:bg-neutral-800">
       <Link
         href="/"
         className="hover:underline-offset-4 hover:font-extrabold hover:underline"

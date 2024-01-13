@@ -76,9 +76,9 @@ export default async function DetailMahasiswa(
 ) {
   const { slug } = params;
 
-  const { datastatuskuliah, datastudi, dataumum } = await getStudentDetail(
+  const { datastatuskuliah, datastudi, dataumum } = (await getStudentDetail(
     slug
-  );
+  )) as DetailMahasiswaProps;
 
   return (
     <main className="flex justify-center flex-col items-center w-full">

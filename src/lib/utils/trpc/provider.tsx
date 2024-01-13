@@ -6,11 +6,10 @@ import { atom, useAtom } from "jotai";
 import { env } from "~env.mjs";
 import type { ChildrenProps } from "~types";
 
+import { CONDITION } from "../constants";
 import { trpc } from "./client";
 
 const { NEXT_PUBLIC_DEVELOPMENT_URL, NEXT_PUBLIC_PRODUCTION_URL } = env;
-
-const condition = process.env.NODE_ENV;
 
 const queryClientAtom = atom<QueryClient>(() => new QueryClient({}));
 const trpcClientAtom = atom(() =>
@@ -18,7 +17,7 @@ const trpcClientAtom = atom(() =>
     links: [
       httpBatchLink({
         url: `${
-          condition === "development"
+          CONDITION === "development"
             ? NEXT_PUBLIC_DEVELOPMENT_URL
             : NEXT_PUBLIC_PRODUCTION_URL
         }/api/trpc`,

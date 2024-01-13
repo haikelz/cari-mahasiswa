@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUpIcon } from "lucide-react";
 import { useScroll } from "~hooks";
 import { tw } from "~lib/helpers";
 

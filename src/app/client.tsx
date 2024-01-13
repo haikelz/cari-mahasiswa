@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { keepPreviousData } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -12,6 +11,7 @@ import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
 
+import { SearchIcon } from "lucide-react";
 import ErrorClient from "./error-client";
 import IsRefetching from "./is-refetching";
 import LoadingClient from "./loading-client";
@@ -49,7 +49,7 @@ export default function Client() {
     <div className="w-full">
       <form onSubmit={handleSubmit(() => refetch())}>
         <div className="flex justify-start relative items-center">
-          <MagnifyingGlassIcon
+          <SearchIcon
             className="absolute ml-3"
             width={20}
             height={20}

@@ -61,7 +61,9 @@ export default async function DetailPerguruanTinggi(
   { params }: { params: { slug: string } }
 ) {
   const { slug } = params;
-  const { data, prodi } = await getUniversityDetail(slug);
+  const { data, prodi } = (await getUniversityDetail(
+    slug
+  )) as DetailPerguruanTinggiProps;
 
   return (
     <main className="flex justify-center flex-col items-center w-full">
