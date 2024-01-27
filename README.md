@@ -5,9 +5,10 @@
 
 ## Features
 
-- Cari mahasiswa berdasarkan NIM, nama, jurusan, serta nama perguruan tinggi
-- Tampilkan detail mahasiswa
-- Tampilkan detail perguruan tinggi
+- Cari mahasiswa berdasarkan NIM, nama, jurusan, serta nama perguruan tinggi.
+- Tampilkan detail mahasiswa.
+- Tampilkan detail perguruan tinggi.
+- Switch theme(dark, light, system).
 
 ## Website Structure
 
@@ -20,6 +21,8 @@
 ![ss 2](./public/ss-2.png)
 
 ![ss 3](./public/ss-3.png)
+
+**Note:** Data mahasiswa dan perguruan tinggi di atas hanya sebagai contoh.
 
 ## Videos
 

@@ -11,9 +11,9 @@ export default function Card({ children, className, ...props }: CardProps) {
       <div
         className={tw(
           "border border-neutral-300",
-          "dark:bg-neutral-900 group-hover:bg-gray-100",
+          "dark:bg-neutral-900 group-hover:bg-neutral-100",
           "group-hover:dark:bg-neutral-800",
-          "bg-gray-50 dark:border-neutral-200",
+          "bg-neutral-50 dark:border-neutral-200",
           "rounded-md w-full p-3",
           className
         )}

@@ -1,1 +1,1 @@
-export const CONDITION   = process.env.NODE_ENV
+export const CONDITION = process.env.NODE_ENV;

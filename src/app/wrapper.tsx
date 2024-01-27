@@ -9,7 +9,12 @@ export default function Wrapper({ children }: ChildrenProps) {
   return (
     <JotaiProvider>
       <Provider>
-        <ThemeProvider enableSystem attribute="class">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </Provider>

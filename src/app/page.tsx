@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { LoadingBackToTop } from "~components/back-to-top";
 import { Heading, Paragraph } from "~components/ui/typography";
+import { tw } from "~lib/helpers";
 
 import Client from "./client";
 
@@ -34,7 +34,16 @@ export const metadata: Metadata = {
 };
 
 const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
-  loading: () => <LoadingBackToTop />,
+  loading: () => {
+    return (
+      <div
+        className={tw(
+          "w-9 h-9 rounded-md bg-neutral-200",
+          "dark:bg-neutral-800 animate-pulse"
+        )}
+      ></div>
+    );
+  },
   ssr: false,
 });
 
