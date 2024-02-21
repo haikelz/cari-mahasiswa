@@ -1,4 +1,7 @@
 import "./src/env.mjs";
+import { env } from "./src/env.mjs";
+
+const { NEXT_PUBLIC_API_URL } = env;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,7 +16,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "api-frontend.kemdikbud.go.id",
+        hostname: NEXT_PUBLIC_API_URL.replace("https://", ""),
       },
     ],
     dangerouslyAllowSVG: true,
