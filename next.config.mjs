@@ -11,6 +11,10 @@ const nextConfig = {
         hostname: "placehold.co",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "api-frontend.kemdikbud.go.id",
+      },
     ],
     dangerouslyAllowSVG: true,
   },

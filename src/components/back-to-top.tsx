@@ -2,7 +2,6 @@
 
 import { ArrowUpIcon } from "lucide-react";
 import { useScroll } from "~hooks";
-import { tw } from "~lib/helpers";
 
 import { Button } from "./ui/button";
 

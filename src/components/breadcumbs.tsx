@@ -3,13 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
+import { tw } from "~lib/helpers";
 
 export default function Breadcrumbs() {
   const pathname = usePathname();
   const pathnames = pathname.slice(1).split("/");
 
   return (
-    <span className="font-semibold px-2 leading-6 tracking-wide py-1 rounded-md bg-neutral-200 dark:bg-neutral-800">
+    <span
+      className={tw(
+        "font-semibold px-2 leading-6 tracking-wide py-1",
+        "rounded-md bg-neutral-200 dark:bg-neutral-800"
+      )}
+    >
       <Link
         href="/"
         className="hover:underline-offset-4 hover:font-extrabold hover:underline"
@@ -30,7 +36,7 @@ export default function Breadcrumbs() {
       ))}
       <Link
         href={pathname}
-        className="hover:underline-offset-4 hover:font-extrabold hover:underline"
+        className="underline-offset-4 font-extrabold underline"
       >
         {pathnames[pathnames.length - 1].slice(0, 10)}...
       </Link>

@@ -1,9 +1,10 @@
-export interface DetailPerguruanTinggiProps {
-  data: PerguruanTinggiProps;
-  prodi: ProdiProps[];
-}
+type AkreditasiListProps = {
+  akreditasi: string;
+  tgl_akreditasi: string;
+  tgl_berlaku: string;
+};
 
-export type PerguruanTinggiProps = {
+export type DetailPerguruanTinggiProps = {
   npsn: string;
   stat_sp: string;
   nm_lemb: string;
@@ -17,27 +18,33 @@ export type PerguruanTinggiProps = {
   no_fax: string;
   email: string;
   website: string;
-  akreditas: string;
   lintang: number;
   bujur: number;
   id_sp: string;
-  logo: string;
-  rasio: RasioProps[];
+  luas_tanah: number;
+  laboratorium: number;
+  ruang_kelas: number;
+  perpustakaan: number;
+  internet: boolean;
+  listrik: boolean;
+  nama_rektor: string;
+  akreditasi_list: AkreditasiListProps[];
 };
 
-export type RasioProps = {
-  smt: string;
-  jmldosen: string;
-  jmlmhs: string;
-  kode_program_studi: string;
+type RasioListProps = {
+  semester: string;
+  dosen: number;
+  mahasiswa: number;
+  dosenNidn: number;
+  dosenNidk: number;
 };
 
-export type ProdiProps = {
+export type ProdiPerguruanTinggiProps = {
   id_sms: string;
   kode_prodi: string;
   nm_lemb: string;
   stat_prodi: string;
   jenjang: string;
-  akreditas?: string;
-  rasio: Omit<RasioProps, "kode_program_studi">;
+  akreditas: string | null;
+  rasio_list: RasioListProps[];
 };

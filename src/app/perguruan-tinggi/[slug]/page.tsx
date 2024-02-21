@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "~components/breadcumbs";
+import Map from "~components/map";
 import Image from "~components/ui/image";
 import {
   Table,
@@ -12,10 +13,10 @@ import {
 } from "~components/ui/table";
 import { Heading, Paragraph } from "~components/ui/typography";
 import { env } from "~env.mjs";
-import { getUniversityDetail } from "~features";
+import { getUniversityDetail, getUniversityListProdi } from "~features";
 import { formatToID } from "~lib/helpers";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
-import { DetailPerguruanTinggiProps } from "~types";
+import { DetailPerguruanTinggiProps, ProdiPerguruanTinggiProps } from "~types";
 
 const { NEXT_PUBLIC_API_URL } = env;
 
@@ -24,19 +25,19 @@ export async function generateMetadata(
 ): Promise<Metadata | undefined> {
   const { slug } = params;
   const response: DetailPerguruanTinggiProps = await configuredOfetch(
-    `${NEXT_PUBLIC_API_URL}/detail_pt/${slug}`
+    `${NEXT_PUBLIC_API_URL}/v2/detail_pt/${slug}`
   );
 
-  const { data } = response;
+  const { nm_lemb } = response;
 
   return {
-    title: data.nm_lemb,
-    description: `Perguruan tinggi bernama ${data.nm_lemb}`,
+    title: nm_lemb,
+    description: `Perguruan tinggi bernama ${nm_lemb}`,
     openGraph: {
       type: "website",
       url: `https://cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`,
-      title: data.nm_lemb,
-      description: `Perguruan tinggi bernama ${data.nm_lemb}`,
+      title: nm_lemb,
+      description: `Perguruan tinggi bernama ${nm_lemb}`,
       images: [
         {
           url: "/banner.png",
@@ -46,8 +47,8 @@ export async function generateMetadata(
       siteName: `cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`,
     },
     twitter: {
-      title: data.nm_lemb,
-      description: `Perguruan tinggi bernama ${data.nm_lemb}`,
+      title: nm_lemb,
+      description: `Perguruan tinggi bernama ${nm_lemb}`,
       site: `https://cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`,
       card: "summary_large_image",
     },
@@ -61,9 +62,33 @@ export default async function DetailPerguruanTinggi(
   { params }: { params: { slug: string } }
 ) {
   const { slug } = params;
-  const { data, prodi } = (await getUniversityDetail(
+  const {
+    nm_lemb,
+    nama_wil,
+    npsn,
+    jln,
+    stat_sp,
+    website,
+    tgl_berdiri,
+    tgl_sk_pendirian_sp,
+    no_fax,
+    no_tel,
+    email,
+    sk_pendirian_sp,
+    kode_pos,
+    perpustakaan,
+    ruang_kelas,
+    laboratorium,
+    luas_tanah,
+    lintang,
+    bujur,
+  } = (await getUniversityDetail(slug)) as DetailPerguruanTinggiProps;
+
+  const prodi = (await getUniversityListProdi(
     slug
-  )) as DetailPerguruanTinggiProps;
+  )) as ProdiPerguruanTinggiProps[];
+
+  const logo = `${NEXT_PUBLIC_API_URL}/v2/detail_pt_logo/${slug}`;
 
   return (
     <main className="flex justify-center flex-col items-center w-full">
@@ -77,13 +102,13 @@ export default async function DetailPerguruanTinggi(
             <div className="flex justify-center items-center w-full">
               <Image
                 src={
-                  data.logo ??
+                  logo ??
                   `https://placehold.co/300?text=Image+Not+Found&font=montserrat`
                 }
                 alt="logo"
                 width={300}
                 height={300}
-                isBase64={data.logo ? true : false}
+                isBase64={false}
                 className="my-4 rounded-md dark:bg-white"
                 fetchPriority="high"
               />
@@ -91,55 +116,59 @@ export default async function DetailPerguruanTinggi(
             <div className="mt-4">
               <Heading as="h3">Informasi Umum</Heading>
               <div className="mt-2">
-                <Paragraph className="font-medium">NPSN: {data.npsn}</Paragraph>
+                <Paragraph className="font-medium">NPSN: {npsn}</Paragraph>
                 <Paragraph className="font-medium">
-                  Nama: {data.nm_lemb ?? "-"}
+                  Nama: {nm_lemb ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Wilayah: {data.nama_wil ?? "-"}
+                  Wilayah: {nama_wil ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Alamat: {data.jln ?? "-"}
+                  Alamat: {jln ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Status: {data.stat_sp ?? "-"}
+                  Status: {stat_sp ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Tanggal berdiri: {formatToID(data.tgl_berdiri) ?? "-"}
+                  Tanggal berdiri: {formatToID(tgl_berdiri) ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
                   Website:{" "}
                   <Link
                     href={
-                      data.website.includes("https") ||
-                      data.website.includes("http")
-                        ? data.website
-                        : `https://${data.website}`
+                      website.includes("https") || website.includes("http")
+                        ? website
+                        : `https://${website}`
                     }
                     target="_blank"
                     className="text-blue-500 underline underline-offset-4"
                     rel="noreferrer noopener"
                   >
-                    {data.website ?? "-"}
+                    {website ?? "-"}
                   </Link>
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  No.Telepon: {data.no_tel ?? "-"}
+                  No.Telepon: {no_tel ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  E-Mail: {data.email ?? "-"}
+                  E-Mail: {email ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Kode pos: {data.kode_pos ?? "-"}
+                  Kode pos: {kode_pos ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  SK.Pendirian SP: {data.sk_pendirian_sp ?? "-"}
+                  SK.Pendirian SP: {sk_pendirian_sp ?? "-"}
                 </Paragraph>
                 <Paragraph className="font-medium">
-                  Tanggal SK Pendirian:{" "}
-                  {formatToID(data.tgl_sk_pendirian_sp) ?? "-"}
+                  Tanggal SK Pendirian: {formatToID(tgl_sk_pendirian_sp) ?? "-"}
                 </Paragraph>
               </div>
+            </div>
+          </div>
+          <div className="mt-5 mb-4 w-full">
+            <Heading as="h3">Peta Lokasi</Heading>
+            <div className="w-full mt-3">
+              <Map lat={lintang} long={bujur} />
             </div>
           </div>
           <div className="mt-5 w-full">

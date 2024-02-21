@@ -1,6 +1,10 @@
 import { env } from "~env.mjs";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
-import { DetailMahasiswaProps, DetailPerguruanTinggiProps } from "~types";
+import {
+  DetailMahasiswaProps,
+  DetailPerguruanTinggiProps,
+  ProdiPerguruanTinggiProps,
+} from "~types";
 
 const { NEXT_PUBLIC_API_URL } = env;
 
@@ -9,7 +13,21 @@ export async function getUniversityDetail(
 ): Promise<DetailPerguruanTinggiProps | undefined> {
   try {
     const response: DetailPerguruanTinggiProps = await configuredOfetch(
-      `${NEXT_PUBLIC_API_URL}/detail_pt/${slug}`
+      `${NEXT_PUBLIC_API_URL}/v2/detail_pt/${slug}`
+    );
+
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getUniversityProdiList(
+  slug: string
+): Promise<ProdiPerguruanTinggiProps[] | undefined> {
+  try {
+    const response: ProdiPerguruanTinggiProps[] = await configuredOfetch(
+      `${NEXT_PUBLIC_API_URL}/v2/detail_pt_prodi/${slug}`
     );
 
     return response;
@@ -24,6 +42,20 @@ export async function getStudentDetail(
   try {
     const response: DetailMahasiswaProps = await configuredOfetch(
       `${NEXT_PUBLIC_API_URL}/detail_mhs/${slug}`
+    );
+
+    return response;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getUniversityListProdi(
+  slug: string
+): Promise<ProdiPerguruanTinggiProps[] | undefined> {
+  try {
+    const response: ProdiPerguruanTinggiProps[] = await configuredOfetch(
+      `${NEXT_PUBLIC_API_URL}/v2/detail_pt_prodi/${slug}`
     );
 
     return response;
