@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { keepPreviousData } from "@tanstack/react-query";
+import { SearchIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -11,7 +12,6 @@ import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
 
-import { SearchIcon } from "lucide-react";
 import ErrorClient from "./error-client";
 import IsRefetching from "./is-refetching";
 import LoadingClient from "./loading-client";
@@ -49,13 +49,9 @@ export default function Client() {
     <div className="w-full">
       <form onSubmit={handleSubmit(() => refetch())}>
         <div className="flex justify-start relative items-center">
-          <SearchIcon
-            className="absolute ml-3"
-            width={20}
-            height={20}
-          />
+          <SearchIcon className="absolute ml-3" width={20} height={20} />
           <input
-            {...register("value", { required: true })}
+            {...register("value", {required: true})}
             className={tw(
               "flex h-9 w-full rounded-md border border-input",
               "px-3 py-1 text-sm bg-background shadow-sm transition-colors",
@@ -67,7 +63,6 @@ export default function Client() {
             type="search"
             placeholder="Cari berdasarkan nama, NIM, jurusan, atau perguruan tinggi...."
             name="value"
-            required
           />
         </div>
         {errors.value?.message ? (

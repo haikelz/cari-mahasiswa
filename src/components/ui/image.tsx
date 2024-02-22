@@ -1,27 +1,34 @@
+"use client";
+
+import { atom, useAtom } from "jotai";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import NextImage, { ImageProps } from "next/image";
+import { useMemo } from "react";
 import { tw } from "~lib/helpers";
 
 type NextImageProps = ImageProps & {
   isBase64: boolean;
 };
 
-/**
- * From the API itself, the image for University logo only available in base64 format.
- * So i added a case to check if the image source is base64 or null.
- */
 export default function Image(
   { className, src, alt, width, height, isBase64, ...props }: NextImageProps
 ) {
+  const imgSrcAtom = useMemo(() => atom<string | StaticImport>(src), [src]);
+  const [imgSrc, setImgSrc] = useAtom(imgSrcAtom);
+
   return (
-    <>
-      <NextImage
-        src={isBase64 ? `data:image/png;base64,${src}` : src}
-        alt={alt}
-        className={tw(className)}
-        width={300}
-        height={300}
-        {...props}
-      />
-    </>
+    <NextImage
+      src={isBase64 ? `data:image/png;base64,${imgSrc}` : imgSrc}
+      alt={alt}
+      onError={() =>
+        setImgSrc(
+          `https://placehold.co/300?text=Image+Not+Found&font=montserrat`
+        )
+      }
+      className={tw(className)}
+      width={width}
+      height={height}
+      {...props}
+    />
   );
 }

@@ -1,8 +1,8 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Breadcrumbs from "~components/breadcumbs";
 import Map from "~components/map";
-import Image from "~components/ui/image";
 import {
   Table,
   TableBody,
@@ -16,7 +16,14 @@ import { env } from "~env.mjs";
 import { getUniversityDetail, getUniversityListProdi } from "~features";
 import { formatToID } from "~lib/helpers";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
-import { DetailPerguruanTinggiProps, ProdiPerguruanTinggiProps } from "~types";
+import type {
+  DetailPerguruanTinggiProps,
+  ProdiPerguruanTinggiProps,
+} from "~types";
+
+import Client from "./client";
+
+const Lightbox = dynamic(() => import("~components/lightbox"));
 
 const { NEXT_PUBLIC_API_URL } = env;
 
@@ -71,15 +78,10 @@ export default async function DetailPerguruanTinggi(
     website,
     tgl_berdiri,
     tgl_sk_pendirian_sp,
-    no_fax,
     no_tel,
     email,
     sk_pendirian_sp,
     kode_pos,
-    perpustakaan,
-    ruang_kelas,
-    laboratorium,
-    luas_tanah,
     lintang,
     bujur,
   } = (await getUniversityDetail(slug)) as DetailPerguruanTinggiProps;
@@ -91,135 +93,128 @@ export default async function DetailPerguruanTinggi(
   const logo = `${NEXT_PUBLIC_API_URL}/v2/detail_pt_logo/${slug}`;
 
   return (
-    <main className="flex justify-center flex-col items-center w-full">
-      <section className="max-w-3xl w-full">
-        <div className="flex w-full justify-center items-start flex-col">
-          <Breadcrumbs />
-          <div className="flex mt-10 justify-center items-center w-full text-center">
-            <Heading as="h1">Detail Perguruan Tinggi</Heading>
-          </div>
-          <div className="mt-8 w-full mb-4">
-            <div className="flex justify-center items-center w-full">
-              <Image
-                src={
-                  logo ??
-                  `https://placehold.co/300?text=Image+Not+Found&font=montserrat`
-                }
-                alt="logo"
-                width={300}
-                height={300}
-                isBase64={false}
-                className="my-4 rounded-md dark:bg-white"
-                fetchPriority="high"
-              />
+    <>
+      <main className="flex justify-center flex-col items-center w-full">
+        <section className="max-w-3xl w-full">
+          <div className="flex w-full justify-center items-start flex-col">
+            <Breadcrumbs />
+            <div className="flex mt-10 justify-center items-center w-full text-center">
+              <Heading as="h1">Detail Perguruan Tinggi</Heading>
             </div>
-            <div className="mt-4">
-              <Heading as="h3">Informasi Umum</Heading>
-              <div className="mt-2">
-                <Paragraph className="font-medium">NPSN: {npsn}</Paragraph>
-                <Paragraph className="font-medium">
-                  Nama: {nm_lemb ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Wilayah: {nama_wil ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Alamat: {jln ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Status: {stat_sp ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Tanggal berdiri: {formatToID(tgl_berdiri) ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Website:{" "}
-                  <Link
-                    href={
-                      website.includes("https") || website.includes("http")
-                        ? website
-                        : `https://${website}`
-                    }
-                    target="_blank"
-                    className="text-blue-500 underline underline-offset-4"
-                    rel="noreferrer noopener"
-                  >
-                    {website ?? "-"}
-                  </Link>
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  No.Telepon: {no_tel ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  E-Mail: {email ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Kode pos: {kode_pos ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  SK.Pendirian SP: {sk_pendirian_sp ?? "-"}
-                </Paragraph>
-                <Paragraph className="font-medium">
-                  Tanggal SK Pendirian: {formatToID(tgl_sk_pendirian_sp) ?? "-"}
-                </Paragraph>
+            <div className="mt-8 w-full mb-4">
+              <Client logo={logo} alt={nm_lemb} />
+              <div className="mt-4">
+                <Heading as="h3">Informasi Umum</Heading>
+                <div className="mt-2">
+                  <Paragraph className="font-medium">NPSN: {npsn}</Paragraph>
+                  <Paragraph className="font-medium">
+                    Nama: {nm_lemb ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Wilayah: {nama_wil ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Alamat: {jln ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Status: {stat_sp ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Tanggal berdiri: {formatToID(tgl_berdiri) ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Website:{" "}
+                    <Link
+                      href={
+                        website.includes("https") || website.includes("http")
+                          ? website
+                          : `https://${website}`
+                      }
+                      target="_blank"
+                      className="text-blue-500 underline underline-offset-4"
+                      rel="noreferrer noopener"
+                    >
+                      {website ?? "-"}
+                    </Link>
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    No.Telepon: {no_tel ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    E-Mail: {email ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Kode pos: {kode_pos ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    SK.Pendirian SP: {sk_pendirian_sp ?? "-"}
+                  </Paragraph>
+                  <Paragraph className="font-medium">
+                    Tanggal SK Pendirian:{" "}
+                    {formatToID(tgl_sk_pendirian_sp) ?? "-"}
+                  </Paragraph>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="mt-5 mb-4 w-full">
-            <Heading as="h3">Peta Lokasi</Heading>
-            <div className="w-full mt-3">
-              <Map lat={lintang} long={bujur} />
+            <div className="mt-5 mb-4 w-full">
+              <Heading as="h3">Peta Lokasi</Heading>
+              <div className="w-full mt-3">
+                <Map lat={lintang} long={bujur} />
+              </div>
+            </div>
+            <div className="mt-5 w-full">
+              <Heading as="h3">Daftar Jurusan yang Tersedia</Heading>
+              <Table className="mt-3">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-center font-bold">No</TableHead>
+                    <TableHead className="text-center font-bold">
+                      Kode
+                    </TableHead>
+                    <TableHead className="text-center font-bold">
+                      Jurusan
+                    </TableHead>
+                    <TableHead className="text-center font-bold">
+                      Jenjang
+                    </TableHead>
+                    <TableHead className="text-center font-bold">
+                      Akreditasi
+                    </TableHead>
+                    <TableHead className="text-center font-bold">
+                      Status
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {prodi.map((item, index) => (
+                    <TableRow key={index + 1}>
+                      <TableCell className="font-medium text-center">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        {item.kode_prodi ?? "-"}
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {item.nm_lemb ?? "-"}
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        {item.jenjang ?? "-"}
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        {item.akreditas ?? "-"}
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        {item.stat_prodi ?? "-"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
             </div>
           </div>
-          <div className="mt-5 w-full">
-            <Heading as="h3">Daftar Jurusan yang Tersedia</Heading>
-            <Table className="mt-3">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="text-center font-bold">No</TableHead>
-                  <TableHead className="text-center font-bold">Kode</TableHead>
-                  <TableHead className="text-center font-bold">
-                    Jurusan
-                  </TableHead>
-                  <TableHead className="text-center font-bold">
-                    Jenjang
-                  </TableHead>
-                  <TableHead className="text-center font-bold">
-                    Akreditasi
-                  </TableHead>
-                  <TableHead className="text-center font-bold">
-                    Status
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {prodi.map((item, index) => (
-                  <TableRow key={index + 1}>
-                    <TableCell className="font-medium text-center">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      {item.kode_prodi ?? "-"}
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {item.nm_lemb ?? "-"}
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      {item.jenjang ?? "-"}
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      {item.akreditas ?? "-"}
-                    </TableCell>
-                    <TableCell className="font-medium text-center">
-                      {item.stat_prodi ?? "-"}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+      <Lightbox imgSrc={logo} alt={nm_lemb} />
+    </>
   );
 }

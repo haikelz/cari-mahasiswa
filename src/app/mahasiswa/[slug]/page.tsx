@@ -14,7 +14,7 @@ import { Heading, Paragraph } from "~components/ui/typography";
 import { env } from "~env.mjs";
 import { getStudentDetail } from "~features";
 import { configuredOfetch } from "~lib/utils/configured-ofetch";
-import { DetailMahasiswaProps, MahasiswaProps } from "~types";
+import type { DetailMahasiswaProps, MahasiswaProps } from "~types";
 
 const { NEXT_PUBLIC_API_URL } = env;
 
