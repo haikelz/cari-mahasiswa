@@ -1,9 +1,5 @@
-import { HTMLAttributes } from "react";
 import { tw } from "~lib/helpers";
-
-type CardProps = HTMLAttributes<HTMLDivElement> & {
-  className?: string;
-};
+import { CardProps } from "~types";
 
 export default function Card({ children, className, ...props }: CardProps) {
   return (

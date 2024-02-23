@@ -22,20 +22,6 @@ export async function getUniversityDetail(
   }
 }
 
-export async function getUniversityProdiList(
-  slug: string
-): Promise<ProdiPerguruanTinggiProps[] | undefined> {
-  try {
-    const response: ProdiPerguruanTinggiProps[] = await configuredOfetch(
-      `${NEXT_PUBLIC_API_URL}/v2/detail_pt_prodi/${slug}`
-    );
-
-    return response;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
 export async function getStudentDetail(
   slug: string
 ): Promise<DetailMahasiswaProps | undefined> {

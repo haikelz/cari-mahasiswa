@@ -2,13 +2,10 @@
 
 import { atom, useAtom } from "jotai";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
-import NextImage, { ImageProps } from "next/image";
+import NextImage from "next/image";
 import { useMemo } from "react";
 import { tw } from "~lib/helpers";
-
-type NextImageProps = ImageProps & {
-  isBase64: boolean;
-};
+import { NextImageProps } from "~types";
 
 export default function Image(
   { className, src, alt, width, height, isBase64, ...props }: NextImageProps

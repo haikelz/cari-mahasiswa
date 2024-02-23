@@ -1,7 +1,4 @@
-type MapProps<T> = {
-  lat: T;
-  long: T;
-};
+import { MapProps } from "~types";
 
 export default function Map({ lat, long }: MapProps<number>) {
   return (

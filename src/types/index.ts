@@ -4,6 +4,7 @@ export type ChildrenProps = {
   children: ReactNode;
 };
 
-export * from "./mahasiswa.type";
+export * from "./components.type";
 export * from "./detail-mahasiswa.type";
 export * from "./detail-perguruan-tinggi.type";
+export * from "./mahasiswa.type";

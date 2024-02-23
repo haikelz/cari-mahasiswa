@@ -21,7 +21,7 @@ import type {
   ProdiPerguruanTinggiProps,
 } from "~types";
 
-import Client from "./client";
+import { LogoDetail, SeeLogoDetail } from "./client";
 
 const Lightbox = dynamic(() => import("~components/lightbox"));
 
@@ -102,7 +102,7 @@ export default async function DetailPerguruanTinggi(
               <Heading as="h1">Detail Perguruan Tinggi</Heading>
             </div>
             <div className="mt-8 w-full mb-4">
-              <Client logo={logo} alt={nm_lemb} />
+              <SeeLogoDetail src={logo} alt={nm_lemb} />
               <div className="mt-4">
                 <Heading as="h3">Informasi Umum</Heading>
                 <div className="mt-2">
@@ -214,7 +214,7 @@ export default async function DetailPerguruanTinggi(
           </div>
         </section>
       </main>
-      <Lightbox imgSrc={logo} alt={nm_lemb} />
+      <LogoDetail src={logo} alt={nm_lemb} />
     </>
   );
 }

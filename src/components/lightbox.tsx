@@ -1,20 +1,12 @@
 "use client";
 
-import { useAtom } from "jotai";
 import { XIcon } from "lucide-react";
 import { tw } from "~lib/helpers";
-import { isOpenAtom } from "~store";
+import { LightboxProps } from "~types";
 
-import Image from "./ui/image";
-
-type LightboxProps = {
-  imgSrc: string;
-  alt: string;
-};
-
-export default function Lightbox({ imgSrc, alt }: LightboxProps) {
-  const [isOpen, setIsOpen] = useAtom(isOpenAtom);
-
+export default function Lightbox(
+  { isOpen, setIsOpen, children }: LightboxProps
+) {
   return (
     <>
       {isOpen ? (
@@ -35,17 +27,7 @@ export default function Lightbox({ imgSrc, alt }: LightboxProps) {
                 <XIcon />
               </button>
             </div>
-            <div className="mt-2">
-              <Image
-                isBase64={false}
-                src={imgSrc}
-                alt={alt}
-                width={400}
-                height={400}
-                className="aspect-square"
-                loading="lazy"
-              />
-            </div>
+            {children}
           </div>
         </div>
       ) : null}
