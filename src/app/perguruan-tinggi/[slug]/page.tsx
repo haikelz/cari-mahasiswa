@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import Breadcrumbs from "~components/breadcumbs";
 import Map from "~components/map";
@@ -22,8 +21,6 @@ import type {
 } from "~types";
 
 import { LogoDetail, SeeLogoDetail } from "./client";
-
-const Lightbox = dynamic(() => import("~components/lightbox"));
 
 const { NEXT_PUBLIC_API_URL } = env;
 

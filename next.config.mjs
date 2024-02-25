@@ -3,6 +3,8 @@ import { env } from "./src/env.mjs";
 
 const { NEXT_PUBLIC_API_URL } = env;
 
+const logo = NEXT_PUBLIC_API_URL.replace("https://", "");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -12,11 +14,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "placehold.co",
-        port: "",
       },
       {
         protocol: "https",
-        hostname: NEXT_PUBLIC_API_URL.replace("https://", ""),
+        hostname: logo,
       },
     ],
     dangerouslyAllowSVG: true,

@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import reactStringReplace from "react-string-replace";
+import { P, match } from "ts-pattern";
 import { Paragraph } from "~components/ui/typography";
 import { tw } from "~lib/helpers";
 import { schema } from "~lib/utils/schema";
@@ -29,7 +30,7 @@ export default function Client() {
     resolver: zodResolver(schema),
   });
 
-  const { data, isPending, isError, refetch, isFetching } = trpc.get.useQuery(
+  const { isRefetching, data, isError, isPending, refetch } = trpc.get.useQuery(
     { value: getValues("value") },
     {
       placeholderData: keepPreviousData,
@@ -40,7 +41,7 @@ export default function Client() {
   );
 
   if (isPending) return <LoadingClient />;
-  if (isFetching && getValues("value").length) return <IsRefetching />;
+  if (isRefetching && getValues("value").length) return <IsRefetching />;
   if (isError) return <ErrorClient />;
 
   const studentsData = data.mahasiswa;
@@ -51,7 +52,7 @@ export default function Client() {
         <div className="flex justify-start relative items-center">
           <SearchIcon className="absolute ml-3" width={20} height={20} />
           <input
-            {...register("value", {required: true})}
+            {...register("value", { required: true })}
             className={tw(
               "flex h-9 w-full rounded-md border border-input",
               "px-3 py-1 text-sm bg-background shadow-sm transition-colors",
@@ -65,80 +66,92 @@ export default function Client() {
             name="value"
           />
         </div>
-        {errors.value?.message ? (
-          <Paragraph
-            data-cy="error-message"
-            className="mt-2 text-center md:text-left"
-          >
-            {errors.value.message}
-          </Paragraph>
-        ) : null}
+        {match({ message: errors.value?.message })
+          .with({ message: P.when((message) => message) }, () => (
+            <Paragraph
+              data-cy="error-message"
+              className="mt-2 text-center md:text-left"
+            >
+              {errors.value?.message}
+            </Paragraph>
+          ))
+          .otherwise(() => null)}
       </form>
       <div className="mt-5 space-y-5">
-        {data.mahasiswa.length ? (
-          studentsData.map((item, index) => (
-            <Card key={index + 1}>
-              <Paragraph className="font-medium w-fit">
-                Nama:{" "}
-                <Link
-                  href={`/mahasiswa/${item.hash}`}
-                  className="font-bold cursor-pointer"
-                >
-                  {reactStringReplace(
-                    item.nama,
-                    getValues("value"),
-                    (match, index) => (
-                      <span
-                        key={index + 1}
-                        className="dark:bg-yellow-600 bg-yellow-300"
-                      >
-                        {match}
-                      </span>
-                    )
-                  )}
-                </Link>
-              </Paragraph>
-              <Paragraph
-                className={tw("font-medium", "group-hover:cursor-auto w-fit")}
-              >
-                Perguruan Tinggi:
-                {reactStringReplace(
-                  item.pt,
-                  getValues("value"),
-                  (match, index) => (
-                    <span
-                      key={index + 1}
-                      className="dark:bg-yellow-600 bg-yellow-300"
+        {match({ studentsData: studentsData })
+          .with(
+            { studentsData: P.when((studentsData) => studentsData.length) },
+            () =>
+              studentsData.map((item, index) => (
+                <Card key={index + 1}>
+                  <Paragraph className="font-medium w-fit">
+                    Nama:{" "}
+                    <Link
+                      href={`/mahasiswa/${item.hash}`}
+                      className="font-bold cursor-pointer"
                     >
-                      {match}
-                    </span>
-                  )
-                )}
-              </Paragraph>
-              <Paragraph
-                className={tw("font-medium", "group-hover:cursor-auto w-fit")}
-              >
-                Prodi:{" "}
-                {reactStringReplace(
-                  item.prodi,
-                  getValues("value"),
-                  (match, index) => (
-                    <span
-                      className="dark:bg-yellow-600 bg-yellow-300"
-                      key={index + 1}
-                    >
-                      {match}
-                    </span>
-                  )
-                )}
-              </Paragraph>
-            </Card>
-          ))
-        ) : (
-          <Paragraph className="text-center font-semibold">
-            Data Mahasiswa tidak ditemukan!
-          </Paragraph>
-        )}
+                      {reactStringReplace(
+                        item.nama,
+                        getValues("value"),
+                        (match, index) => (
+                          <span
+                            key={index + 1}
+                            className="dark:bg-yellow-600 bg-yellow-300"
+                          >
+                            {match}
+                          </span>
+                        )
+                      )}
+                    </Link>
+                  </Paragraph>
+                  <Paragraph
+                    className={tw(
+                      "font-medium",
+                      "group-hover:cursor-auto w-fit"
+                    )}
+                  >
+                    Perguruan Tinggi:
+                    {reactStringReplace(
+                      item.pt,
+                      getValues("value"),
+                      (match, index) => (
+                        <span
+                          key={index + 1}
+                          className="dark:bg-yellow-600 bg-yellow-300"
+                        >
+                          {match}
+                        </span>
+                      )
+                    )}
+                  </Paragraph>
+                  <Paragraph
+                    className={tw(
+                      "font-medium",
+                      "group-hover:cursor-auto w-fit"
+                    )}
+                  >
+                    Prodi:{" "}
+                    {reactStringReplace(
+                      item.prodi,
+                      getValues("value"),
+                      (match, index) => (
+                        <span
+                          className="dark:bg-yellow-600 bg-yellow-300"
+                          key={index + 1}
+                        >
+                          {match}
+                        </span>
+                      )
+                    )}
+                  </Paragraph>
+                </Card>
+              ))
+          )
+          .otherwise(() => (
+            <Paragraph className="text-center font-semibold">
+              Data Mahasiswa tidak ditemukan!
+            </Paragraph>
+          ))}
       </div>
     </div>
   );

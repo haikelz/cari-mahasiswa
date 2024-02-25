@@ -86,6 +86,7 @@ body::-webkit-scrollbar-track {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

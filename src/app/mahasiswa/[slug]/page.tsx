@@ -1,6 +1,7 @@
 import htmr from "htmr";
 import { Metadata } from "next";
 import Link from "next/link";
+import { P, match } from "ts-pattern";
 import Breadcrumbs from "~components/breadcumbs";
 import {
   Table,
@@ -131,27 +132,35 @@ export default async function DetailMahasiswa(
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {datastatuskuliah.length ? (
-                  datastatuskuliah.map((item, index) => (
-                    <TableRow key={index + 1}>
-                      <TableCell className="font-semibold">
-                        {item.id_smt}
-                      </TableCell>
-                      <TableCell className="font-semibold">
-                        {item.sks_smt ?? "-"}
-                      </TableCell>
-                      <TableCell className="font-semibold">
-                        {item.nm_stat_mhs ?? "-"}
-                      </TableCell>
+                {match({ datastatuskuliah: datastatuskuliah })
+                  .with(
+                    {
+                      datastatuskuliah: P.when(
+                        (datastatuskuliah) => datastatuskuliah.length
+                      ),
+                    },
+                    () =>
+                      datastatuskuliah.map((item, index) => (
+                        <TableRow key={index + 1}>
+                          <TableCell className="font-semibold">
+                            {item.id_smt}
+                          </TableCell>
+                          <TableCell className="font-semibold">
+                            {item.sks_smt ?? "-"}
+                          </TableCell>
+                          <TableCell className="font-semibold">
+                            {item.nm_stat_mhs ?? "-"}
+                          </TableCell>
+                        </TableRow>
+                      ))
+                  )
+                  .otherwise(() => (
+                    <TableRow>
+                      <TableCell className="font-medium">-</TableCell>
+                      <TableCell className="font-medium">-</TableCell>
+                      <TableCell className="font-medium">-</TableCell>
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell className="font-medium">-</TableCell>
-                    <TableCell className="font-medium">-</TableCell>
-                    <TableCell className="font-medium">-</TableCell>
-                  </TableRow>
-                )}
+                  ))}
               </TableBody>
             </Table>
           </div>
