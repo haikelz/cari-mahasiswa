@@ -178,31 +178,43 @@ export default async function DetailMahasiswa(
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {datastudi.length ? (
-                  datastudi.map((item, index) => (
-                    <TableRow key={index + 1}>
+                {match({ datastudi: datastudi })
+                  .with(
+                    { datastudi: P.when((datastudi) => datastudi.length) },
+                    () =>
+                      datastudi.map((item, index) => (
+                        <TableRow key={index + 1}>
+                          <TableCell className="font-medium text-center">
+                            {datastudi.length ? index + 1 : "-"}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {htmr(item.nm_mk) ?? "-"}
+                          </TableCell>
+                          <TableCell className="font-medium text-center">
+                            {item.kode_mk ?? "-"}
+                          </TableCell>
+                          <TableCell className="font-medium text-center">
+                            {item.sks_mk ?? "-"}
+                          </TableCell>
+                        </TableRow>
+                      ))
+                  )
+                  .otherwise(() => (
+                    <TableRow>
                       <TableCell className="font-medium text-center">
-                        {datastudi.length ? index + 1 : "-"}
-                      </TableCell>
-                      <TableCell className="font-medium">
-                        {htmr(item.nm_mk) ?? "-"}
+                        -
                       </TableCell>
                       <TableCell className="font-medium text-center">
-                        {item.kode_mk ?? "-"}
+                        -
                       </TableCell>
                       <TableCell className="font-medium text-center">
-                        {item.sks_mk ?? "-"}
+                        -
+                      </TableCell>
+                      <TableCell className="font-medium text-center">
+                        -
                       </TableCell>
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell className="font-medium text-center">-</TableCell>
-                    <TableCell className="font-medium text-center">-</TableCell>
-                    <TableCell className="font-medium text-center">-</TableCell>
-                    <TableCell className="font-medium text-center">-</TableCell>
-                  </TableRow>
-                )}
+                  ))}
               </TableBody>
             </Table>
           </div>

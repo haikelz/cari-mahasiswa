@@ -2,6 +2,18 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "~components/breadcumbs";
 import Map from "~components/map";
+import { Button } from "~components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~components/ui/dialog";
+import Image from "~components/ui/image";
 import {
   Table,
   TableBody,
@@ -20,7 +32,7 @@ import type {
   ProdiPerguruanTinggiProps,
 } from "~types";
 
-import { LogoDetail, SeeLogoDetail } from "./client";
+import { DetailLogo } from "./client";
 
 const { NEXT_PUBLIC_API_URL } = env;
 
@@ -99,7 +111,9 @@ export default async function DetailPerguruanTinggi(
               <Heading as="h1">Detail Perguruan Tinggi</Heading>
             </div>
             <div className="mt-8 w-full mb-4">
-              <SeeLogoDetail src={logo} alt={nm_lemb} />
+              <div className="flex justify-center items-center w-full">
+                <DetailImageDialog logo={logo} nm_lemb={nm_lemb} />
+              </div>
               <div className="mt-4">
                 <Heading as="h3">Informasi Umum</Heading>
                 <div className="mt-2">
@@ -180,6 +194,9 @@ export default async function DetailPerguruanTinggi(
                     <TableHead className="text-center font-bold">
                       Status
                     </TableHead>
+                    <TableHead className="text-center font-bold">
+                      Rasio
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -203,6 +220,9 @@ export default async function DetailPerguruanTinggi(
                       <TableCell className="font-medium text-center">
                         {item.stat_prodi ?? "-"}
                       </TableCell>
+                      <TableCell className="font-medium text-center">
+                        <RatioListDialog rasio_list={item.rasio_list} />
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -211,7 +231,118 @@ export default async function DetailPerguruanTinggi(
           </div>
         </section>
       </main>
-      <LogoDetail src={logo} alt={nm_lemb} />
+      <DetailLogo src={logo} alt={nm_lemb} />
     </>
+  );
+}
+
+function DetailImageDialog<T extends string>(
+  { logo, nm_lemb }: { logo: T; nm_lemb: T }
+) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Image
+          isBase64={false}
+          src={logo}
+          alt={nm_lemb}
+          width={300}
+          height={300}
+          className="aspect-square"
+          loading="lazy"
+        />
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Logo {nm_lemb}</DialogTitle>
+        </DialogHeader>
+        <div className="w-full flex justify-center items-center">
+          <Image
+            isBase64={false}
+            src={logo}
+            alt={nm_lemb}
+            width={400}
+            height={400}
+            className="aspect-square"
+            loading="lazy"
+          />
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="secondary"
+              aria-label="close"
+              className="font-bold"
+            >
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function RatioListDialog(
+  { rasio_list }: Pick<ProdiPerguruanTinggiProps, "rasio_list">
+) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          variant="default"
+          className="font-bold"
+          type="button"
+          aria-label="lihat"
+        >
+          Lihat
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Rasio</DialogTitle>
+          <DialogDescription>
+            Perbandingan jumlah dosen dan mahasiswa
+          </DialogDescription>
+        </DialogHeader>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-center font-bold">Semester</TableHead>
+              <TableHead className="text-center font-bold">Dosen</TableHead>
+              <TableHead className="text-center font-bold">Mahasiswa</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rasio_list.map((item2, index) => (
+              <TableRow key={index + 1}>
+                <TableCell className="font-medium text-center">
+                  {item2.semester}
+                </TableCell>
+                <TableCell className="font-medium text-center">
+                  {item2.dosen}
+                </TableCell>
+                <TableCell className="font-medium text-center">
+                  {item2.mahasiswa}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant="secondary"
+              aria-label="close"
+              className="font-bold"
+            >
+              Close
+            </Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

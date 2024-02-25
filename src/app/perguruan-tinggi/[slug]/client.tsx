@@ -31,7 +31,7 @@ export function SeeLogoDetail({ src, alt }: LogoDetailProps) {
   );
 }
 
-export function LogoDetail({ src, alt }: LogoDetailProps) {
+export function DetailLogo({ src, alt }: LogoDetailProps) {
   const [isOpenLogo, setIsOpenLogo] = useAtom(isOpenLogoAtom);
 
   return (
