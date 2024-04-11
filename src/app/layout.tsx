@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
+import SwitchTheme from "~components/switch-theme";
 import { tw } from "~lib/helpers";
 import { ChildrenProps } from "~types";
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: ChildrenProps) {
     <html lang="id" suppressHydrationWarning>
       <body className={tw("p-4", inter.className)}>
         <Wrapper>
+          <SwitchTheme />
           {children}
           <Footer />
           <BackToTop />
