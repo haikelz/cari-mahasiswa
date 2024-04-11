@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { tw } from "~lib/helpers";
 import { ChildrenProps } from "~types";
 
+import Footer from "../components/footer";
 import "./globals.css";
 import Wrapper from "./wrapper";
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: ChildrenProps) {
       <body className={tw("p-4", inter.className)}>
         <Wrapper>
           {children}
+          <Footer />
           <BackToTop />
         </Wrapper>
         <Analytics />

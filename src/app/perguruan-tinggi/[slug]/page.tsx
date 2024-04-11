@@ -104,7 +104,7 @@ export default async function DetailPerguruanTinggi(
   return (
     <>
       <main className="flex justify-center flex-col items-center w-full">
-        <section className="max-w-3xl w-full">
+        <section className="max-w-3xl my-3 w-full">
           <div className="flex w-full justify-center items-start flex-col">
             <Breadcrumbs />
             <div className="flex mt-10 justify-center items-center w-full text-center">
@@ -241,7 +241,7 @@ function DetailImageDialog<T extends string>(
 ) {
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className="cursor-pointer">
         <Image
           isBase64={false}
           src={logo}

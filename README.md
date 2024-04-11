@@ -30,7 +30,7 @@
 
 ## Tech Stack
 
-- Next JS 13
+- Next JS
 - Typescript
 - Tailwind CSS with shadcn/ui
 - React Query

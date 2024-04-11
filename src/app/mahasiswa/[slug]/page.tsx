@@ -83,7 +83,7 @@ export default async function DetailMahasiswa(
 
   return (
     <main className="flex justify-center flex-col items-center w-full">
-      <section className="max-w-3xl w-full">
+      <section className="max-w-3xl my-3 w-full">
         <div className="flex items-start justify-center flex-col w-full">
           <Breadcrumbs />
           <div className="flex w-full mt-10 justify-center items-center space-x-5 text-center">

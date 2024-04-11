@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
@@ -12,26 +13,16 @@ export default function Breadcrumbs() {
   return (
     <span
       className={tw(
-        "font-semibold px-2 leading-6 tracking-wide py-1",
+        "font-semibold flex justify-center items-center w-fit px-2 leading-6 tracking-wide py-1",
         "rounded-md bg-neutral-200 dark:bg-neutral-800"
       )}
     >
-      <Link
-        href="/"
-        className="hover:underline-offset-4 hover:font-extrabold hover:underline"
-      >
-        home
-      </Link>
-      <span>{" > "}</span>
+      <Link href="/">home</Link>
+      <ChevronRight size={20} />
       {pathnames.slice(0, pathnames.length - 1).map((item, index) => (
         <Fragment key={index + 1}>
-          <Link
-            href={`/${item}`}
-            className="hover:underline-offset-4 hover:font-extrabold hover:underline"
-          >
-            {item}
-          </Link>
-          <span>{" > "}</span>
+          <Link href={`/${item}`}>{item}</Link>
+          <ChevronRight size={20} />
         </Fragment>
       ))}
       <Link
