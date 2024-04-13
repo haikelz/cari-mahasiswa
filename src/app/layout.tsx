@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
-import SwitchTheme from "~components/switch-theme";
 import { tw } from "~lib/helpers";
 import { ChildrenProps } from "~types";
 
@@ -11,6 +10,19 @@ import "./globals.css";
 import Wrapper from "./wrapper";
 
 const BackToTop = dynamic(() => import("~components/back-to-top"));
+const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
+  loading: () => {
+    return (
+      <div
+        className={tw(
+          "w-9 fixed top-4 right-4 h-9 rounded-md bg-neutral-200",
+          "dark:bg-neutral-800 animate-pulse"
+        )}
+      ></div>
+    );
+  },
+  ssr: false,
+});
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,7 +1,5 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { Heading, Paragraph } from "~components/ui/typography";
-import { tw } from "~lib/helpers";
 
 import Client from "./client";
 
@@ -32,20 +30,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://cari-mahasiswa.vercel.app"),
 };
-
-const SwitchTheme = dynamic(() => import("~components/switch-theme"), {
-  loading: () => {
-    return (
-      <div
-        className={tw(
-          "w-9 h-9 rounded-md bg-neutral-200",
-          "dark:bg-neutral-800 animate-pulse"
-        )}
-      ></div>
-    );
-  },
-  ssr: false,
-});
 
 export default function HomePage() {
   return (
