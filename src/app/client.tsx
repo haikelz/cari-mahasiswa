@@ -36,7 +36,6 @@ export default function Client() {
     {
       placeholderData: keepPreviousData,
       refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
       refetchOnMount: false,
     }
   );

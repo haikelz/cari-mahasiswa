@@ -17,7 +17,7 @@ export async function getMahasiswa(value: string): Promise<MahasiswaProps> {
 
     return response;
   } catch (err: any) {
-    throw new Error(err.message);
+    throw new Error("Failed to fetch data!");
   }
 }
 
@@ -31,7 +31,7 @@ export async function getUniversityDetail(
 
     return response;
   } catch (err: any) {
-    throw new Error(err.message);
+    throw new Error("Failed to fetch data!");
   }
 }
 
@@ -45,7 +45,7 @@ export async function getStudentDetail(
 
     return response;
   } catch (err: any) {
-    throw new Error(err.message);
+    throw new Error("Failed to fetch data!");
   }
 }
 
@@ -59,6 +59,6 @@ export async function getUniversityListProdi(
 
     return response;
   } catch (err: any) {
-    throw new Error(err.message);
+    throw new Error("Failed to fetch data!");
   }
 }

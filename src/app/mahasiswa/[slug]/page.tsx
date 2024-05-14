@@ -119,6 +119,14 @@ export default async function DetailMahasiswa(
               <Paragraph className="font-medium">
                 Jenis Kelamin: {dataumum.jk === "L" ? "Laki-Laki" : "Perempuan"}
               </Paragraph>
+              <Paragraph className="font-medium">
+                Keterangan:{" "}
+                <b>
+                  {dataumum.ket_keluar !== null
+                    ? dataumum.ket_keluar
+                    : "Belum Lulus"}
+                </b>
+              </Paragraph>
             </div>
           </div>
           <div className="w-full my-5">
