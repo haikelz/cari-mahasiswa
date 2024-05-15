@@ -2,7 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 import { ChildrenProps } from "~types";
 
 import Footer from "../components/footer";

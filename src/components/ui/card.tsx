@@ -1,4 +1,4 @@
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 import { CardProps } from "~types";
 
 export default function Card({ children, className, ...props }: CardProps) {

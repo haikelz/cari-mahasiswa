@@ -1,4 +1,4 @@
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 import type { ParagraphProps } from "~types";
 
 export function Paragraph({ className, children, ...props }: ParagraphProps) {

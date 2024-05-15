@@ -1,5 +1,5 @@
 import * as React from "react";
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 
 const Table = React.forwardRef<
   HTMLTableElement,

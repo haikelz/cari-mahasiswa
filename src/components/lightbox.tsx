@@ -2,7 +2,7 @@
 
 import { XIcon } from "lucide-react";
 import { match } from "ts-pattern";
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 import { LightboxProps } from "~types";
 
 export default function Lightbox(

@@ -1,4 +1,4 @@
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 
 export default function IsRefetching() {
   return (

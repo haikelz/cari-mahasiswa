@@ -4,7 +4,7 @@ import { atom, useAtom } from "jotai";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import NextImage from "next/image";
 import { useMemo } from "react";
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 import { NextImageProps } from "~types";
 
 export default function Image(

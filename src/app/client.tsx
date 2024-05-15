@@ -10,7 +10,7 @@ import reactStringReplace from "react-string-replace";
 import { P, match } from "ts-pattern";
 import { Button } from "~components/ui/button";
 import { Paragraph } from "~components/ui/typography";
-import { tw } from "~lib/helpers";
+import { tw } from "~lib/utils/tw";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
 
