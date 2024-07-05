@@ -51,7 +51,7 @@ export async function generateMetadata(
     description: `Perguruan tinggi bernama ${nm_lemb}`,
     openGraph: {
       type: "website",
-      url: `https://cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`,
+      url: `https://crmhs.ekel.dev/perguruan-tinggi/${slug}`,
       title: nm_lemb,
       description: `Perguruan tinggi bernama ${nm_lemb}`,
       images: [
@@ -60,16 +60,16 @@ export async function generateMetadata(
           alt: "OG Image",
         },
       ],
-      siteName: `cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`,
+      siteName: `crmhs.ekel.dev/perguruan-tinggi/${slug}`,
     },
     twitter: {
       title: nm_lemb,
       description: `Perguruan tinggi bernama ${nm_lemb}`,
-      site: `https://cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`,
+      site: `https://crmhs.ekel.dev/perguruan-tinggi/${slug}`,
       card: "summary_large_image",
     },
     metadataBase: new URL(
-      `https://cari-mahasiswa.vercel.app/perguruan-tinggi/${slug}`
+      `https://crmhs.ekel.dev/perguruan-tinggi/${slug}`
     ),
   };
 }

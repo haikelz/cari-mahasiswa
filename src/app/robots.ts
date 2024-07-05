@@ -6,7 +6,7 @@ export default function Robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    host: "https://cari-mahasiswa.vercel.app/",
-    sitemap: "https://cari-mahasiswa.vercel.app/sitemap.xml",
+    host: "https://crmhs.ekel.dev/",
+    sitemap: "https://crmhs.ekel.dev/sitemap.xml",
   };
 }

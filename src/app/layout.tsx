@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "Sebuah Website untuk mencari data Mahasiswa dari berbagai perguruan tinggi",
   openGraph: {
     type: "website",
-    url: "https://cari-mahasiswa.vercel.app",
+    url: "https://crmhs.ekel.dev",
     title: "Cari Mahasiswa",
     description:
       "Sebuah Website untuk mencari data Mahasiswa dari berbagai perguruan tinggi",
@@ -42,16 +42,16 @@ export const metadata: Metadata = {
         alt: "OG Image",
       },
     ],
-    siteName: "cari-mahasiswa.vercel.app",
+    siteName: "crmhs.ekel.dev",
   },
   twitter: {
     title: "Cari Mahasiswa",
     description:
       "Sebuah Website untuk mencari data Mahasiswa dari berbagai perguruan tinggi",
-    site: "https://cari-mahasiswa.vercel.app",
+    site: "https://crmhs.ekel.dev",
     card: "summary_large_image",
   },
-  metadataBase: new URL("https://cari-mahasiswa.vercel.app"),
+  metadataBase: new URL("https://crmhs.ekel.dev"),
 };
 
 export default function RootLayout({ children }: ChildrenProps) {

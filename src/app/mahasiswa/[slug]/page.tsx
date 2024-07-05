@@ -35,7 +35,7 @@ export async function generateMetadata(
     description: `Mahasiswa bernama ${dataumum.nm_pd}`,
     openGraph: {
       type: "website",
-      url: `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
+      url: `https://crmhs.ekel.dev/mahasiswa/${slug}`,
       title: `Mahasiswa bernama ${dataumum.nm_pd}`,
       description: `Mahasiswa bernama ${dataumum.nm_pd}`,
       images: [
@@ -44,16 +44,16 @@ export async function generateMetadata(
           alt: "OG Image",
         },
       ],
-      siteName: `cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
+      siteName: `crmhs.ekel.dev/mahasiswa/${slug}`,
     },
     twitter: {
       title: response.dataumum.nm_pd,
       description: `Mahasiswa bernama ${dataumum.nm_pd}`,
-      site: `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`,
+      site: `https://crmhs.ekel.dev/mahasiswa/${slug}`,
       card: "summary_large_image",
     },
     metadataBase: new URL(
-      `https://cari-mahasiswa.vercel.app/mahasiswa/${slug}`
+      `https://crmhs.ekel.dev/mahasiswa/${slug}`
     ),
   };
 }
