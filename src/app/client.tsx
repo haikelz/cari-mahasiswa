@@ -10,11 +10,10 @@ import reactStringReplace from "react-string-replace";
 import { P, match } from "ts-pattern";
 import { Button } from "~components/ui/button";
 import { Paragraph } from "~components/ui/typography";
+import { tw } from "~lib/utils/tw";
 import { schema } from "~lib/utils/schema";
 import { trpc } from "~lib/utils/trpc/client";
-import { tw } from "~lib/utils/tw";
 
-import { useSearchParams } from "next/navigation";
 import ErrorClient from "./error-client";
 import IsRefetching from "./is-refetching";
 import LoadingClient from "./loading-client";
@@ -64,7 +63,6 @@ export default function Client() {
               type="search"
               placeholder="Cari berdasarkan nama, NIM, jurusan, atau perguruan tinggi...."
               name="value"
-
             />
           </div>
           <Button className="rounded-l-none" type="submit">

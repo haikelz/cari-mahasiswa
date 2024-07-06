@@ -52,9 +52,7 @@ export async function generateMetadata(
       site: `https://crmhs.ekel.dev/mahasiswa/${slug}`,
       card: "summary_large_image",
     },
-    metadataBase: new URL(
-      `https://crmhs.ekel.dev/mahasiswa/${slug}`
-    ),
+    metadataBase: new URL(`https://crmhs.ekel.dev/mahasiswa/${slug}`),
   };
 }
 
@@ -115,6 +113,17 @@ export default async function DetailMahasiswa(
               </Paragraph>
               <Paragraph className="font-medium">
                 Jenjang: {dataumum.namajenjang ?? "-"}
+              </Paragraph>
+              <Paragraph className="font-medium">
+                Status Awal Masuk: {dataumum.nm_jns_daftar}
+              </Paragraph>
+              <Paragraph className="font-medium">
+                Tahun Masuk: {dataumum.mulai_smt.slice(0, 4)}{" "}
+                {dataumum.mulai_smt[dataumum.mulai_smt.length - 1] === "1"
+                  ? "Ganjil"
+                  : dataumum.mulai_smt[dataumum.mulai_smt.length - 1] === "2"
+                  ? "Genap"
+                  : ""}
               </Paragraph>
               <Paragraph className="font-medium">
                 Jenis Kelamin: {dataumum.jk === "L" ? "Laki-Laki" : "Perempuan"}
